@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.rxjava.functions.FlatMapFunction
 import com.example.rxjava.functions.Function
 import com.example.rxjava.functions.MapFunction
+import com.example.rxjava.observers.Emitter
 import com.example.rxjava.observers.Observer
 import com.example.rxjava.operators.*
 
@@ -59,8 +60,16 @@ open class Observable<T> : Disposable {
             return EmptyObservable()
         }
 
+        fun <T> never(): Observable<T> {
+            return NeverObservable()
+        }
+
         fun range(count: Int): Observable<Int> {
             return RangeObservable(count)
+        }
+
+        fun <T> create(emitter: Emitter<T>): Observable<T> {
+            return CreateObservable(emitter)
         }
     }
 }
