@@ -3,6 +3,7 @@ package com.example.rxjava.repository
 import com.example.rxjava.emitter.Emitter
 import com.example.rxjava.emitter.EmitterSource
 import com.example.rxjava.observables.Observable
+import com.example.rxjava.operators.create
 
 class PositiveNumberRepository {
     fun getNumberObservable(): Observable<Int> {

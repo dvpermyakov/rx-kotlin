@@ -1,11 +1,7 @@
 package com.example.rxjava.observables
 
 import android.util.Log
-import com.example.rxjava.functions.*
-import com.example.rxjava.functions.Function
-import com.example.rxjava.emitter.EmitterSource
 import com.example.rxjava.observers.Observer
-import com.example.rxjava.operators.*
 
 open class Observable<T> : Disposable {
     private var observer: Observer<T>? = null
@@ -30,61 +26,5 @@ open class Observable<T> : Disposable {
         observer = null
     }
 
-    fun map(function: MapFunction<T>): Observable<T> {
-        return MapObservable(this, function)
-    }
-
-    fun map(lambda: (T) -> T): Observable<T> {
-        return MapObservable(this, lambda.toFunction())
-    }
-
-    fun flatMap(function: FlatMapFunction<T>): Observable<T> {
-        return FlatMapObservable(this, function)
-    }
-
-    fun distinctUntilChanged(): Observable<T> {
-        return DistinctObservable(this)
-    }
-
-    fun takeLast(count: Int): Observable<T> {
-        return TakeLastObservable(this, count)
-    }
-
-    fun onSubscribe(function: Function): Observable<T> {
-        return OnSubscribeObservable(this, function)
-    }
-
-    fun onSubscribe(lambda: () -> Unit): Observable<T> {
-        return OnSubscribeObservable(this, lambda.toFunction())
-    }
-
-    companion object {
-        fun <T> just(item: T): Observable<T> {
-            return JustObservable(item)
-        }
-
-        fun <T> fromCallable(callable: Callable<T>): Observable<T> {
-            return FromCallableObservable(callable)
-        }
-
-        fun <T> fromCallable(lambda: () -> T): Observable<T> {
-            return FromCallableObservable(lambda.toCallable())
-        }
-
-        fun <T> empty(): Observable<T> {
-            return EmptyObservable()
-        }
-
-        fun <T> never(): Observable<T> {
-            return NeverObservable()
-        }
-
-        fun range(count: Int): Observable<Int> {
-            return RangeObservable(count)
-        }
-
-        fun <T> create(source: EmitterSource<T>): Observable<T> {
-            return CreateObservable(source)
-        }
-    }
+    companion object
 }

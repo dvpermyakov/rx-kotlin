@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.rxjava.interactors.NumberInteractor
 import com.example.rxjava.observables.Disposable
 import com.example.rxjava.observers.Observer
+import com.example.rxjava.operators.onSubscribe
 
 class MainActivity : AppCompatActivity() {
     private val interactor = NumberInteractor()

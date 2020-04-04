@@ -1,6 +1,8 @@
 package com.example.rxjava.interactors
 
 import com.example.rxjava.observables.Observable
+import com.example.rxjava.operators.distinctUntilChanged
+import com.example.rxjava.operators.map
 import com.example.rxjava.repository.PositiveNumberRepository
 
 class NumberInteractor {
