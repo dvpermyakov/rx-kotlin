@@ -1,4 +1,4 @@
-package com.example.rxjava.interactors
+package com.example.rxjava.domain.interactors
 
 import com.example.rxjava.domain.model.Transaction
 import com.example.rxjava.domain.repository.CardRepository

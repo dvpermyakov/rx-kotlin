@@ -3,7 +3,7 @@ package com.example.rxjava
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.example.rxjava.interactors.TransactionInteractor
+import com.example.rxjava.domain.interactors.TransactionInteractor
 import com.example.rxjava.observables.Disposable
 import com.example.rxjava.observers.Observer
 import com.example.rxjava.operators.map
