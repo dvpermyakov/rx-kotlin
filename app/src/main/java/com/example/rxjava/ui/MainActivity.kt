@@ -1,8 +1,9 @@
-package com.example.rxjava
+package com.example.rxjava.ui
 
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.example.rxjava.R
 import com.example.rxjava.domain.interactors.TransactionInteractor
 import com.example.rxjava.observables.Disposable
 import com.example.rxjava.observers.Observer
@@ -32,7 +33,6 @@ class MainActivity : AppCompatActivity() {
             .subscribe(MyActivityObserver())
     }
 
-    override fun onStop() {
         super.onStop()
         disposable?.dispose()
         disposable = null
