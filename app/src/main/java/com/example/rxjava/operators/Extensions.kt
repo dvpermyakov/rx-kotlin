@@ -80,3 +80,19 @@ fun <T> Observable.Companion.create(source: EmitterSource<T>): Observable<T> {
 fun <T> Observable.Companion.mergeList(sources: List<Observable<T>>): Observable<T> {
     return fromList(sources).flatMap { source -> source }
 }
+
+fun <T, R> Observable.Companion.zipList(
+    zipper: Zipper<T, R>,
+    sources: List<Observable<T>>
+): Observable<R> {
+    return ZipObservable(sources, zipper)
+}
+
+@Suppress("UNCHECKED_CAST")
+fun <T1 : Any, T2 : Any, R> Observable.Companion.zip(
+    source1: Observable<T1>,
+    source2: Observable<T2>,
+    zipper: ZipperWithTwo<T1, T2, R>
+): Observable<R> {
+    return zipList(zipper, listOf(source1 as Observable<Any>, source2 as Observable<Any>))
+}

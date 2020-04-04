@@ -1,13 +1,24 @@
 package com.example.rxjava.domain.repository
 
 import com.example.rxjava.domain.model.Card
+import com.example.rxjava.emitter.Emitter
+import com.example.rxjava.emitter.EmitterSource
 import com.example.rxjava.observables.Observable
+import com.example.rxjava.operators.create
 import com.example.rxjava.operators.fromList
 
 class CardRepository {
     fun getMyCards(): Observable<Card> {
-        return Observable.fromList(
-            listOf(Card.MY_CARD_1, Card.MY_CARD_2, Card.MY_CARD_3, Card.MY_CARD_4)
+        return Observable.create(
+            object : EmitterSource<Card> {
+                override fun subscribe(emitter: Emitter<Card>) {
+                    emitter.onNext(Card.MY_CARD_1)
+                    emitter.onNext(Card.MY_CARD_2)
+                    emitter.onNext(Card.MY_CARD_3)
+                    emitter.onNext(Card.MY_CARD_4)
+                    emitter.onComplete()
+                }
+            }
         )
     }
 
