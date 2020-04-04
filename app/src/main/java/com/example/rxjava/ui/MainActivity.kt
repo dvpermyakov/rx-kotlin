@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
             .subscribe(MyActivityObserver())
     }
 
+    override fun onStop() {
         super.onStop()
         disposable?.dispose()
         disposable = null
