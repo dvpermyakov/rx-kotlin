@@ -18,18 +18,7 @@ class FlatMapObservable<T, R>(
         private val mapping: FlatMapFunction<T, R>
     ) : Observer<T>() {
         override fun onNext(item: T) {
-            mapping.map(item).subscribe(object : Observer<R>() {
-                override fun onNext(item: R) {
-                    observer.onNext(item)
-                }
-
-                override fun onComplete() {
-                }
-
-                override fun onError(t: Throwable) {
-                    observer.onError(t)
-                }
-            })
+            mapping.map(item).subscribe(FlatMapInnerObserver(observer))
         }
 
         override fun onComplete() {
@@ -38,6 +27,21 @@ class FlatMapObservable<T, R>(
 
         override fun onError(t: Throwable) {
             observer.onError(t)
+        }
+
+        class FlatMapInnerObserver<T>(
+            private val observer: Observer<T>
+        ) : Observer<T>() {
+            override fun onNext(item: T) {
+                observer.onNext(item)
+            }
+
+            override fun onComplete() {
+            }
+
+            override fun onError(t: Throwable) {
+                observer.onError(t)
+            }
         }
     }
 }
