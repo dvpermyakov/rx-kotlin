@@ -3,6 +3,7 @@ package com.example.rxjava.observables
 import android.util.Log
 import com.example.rxjava.functions.*
 import com.example.rxjava.functions.Function
+import com.example.rxjava.emitter.EmitterSource
 import com.example.rxjava.observers.Observer
 import com.example.rxjava.operators.*
 
@@ -33,6 +34,10 @@ open class Observable<T> : Disposable {
         return MapObservable(this, function)
     }
 
+    fun map(lambda: (T) -> T): Observable<T> {
+        return MapObservable(this, lambda.toFunction())
+    }
+
     fun flatMap(function: FlatMapFunction<T>): Observable<T> {
         return FlatMapObservable(this, function)
     }
@@ -49,6 +54,10 @@ open class Observable<T> : Disposable {
         return OnSubscribeObservable(this, function)
     }
 
+    fun onSubscribe(lambda: () -> Unit): Observable<T> {
+        return OnSubscribeObservable(this, lambda.toFunction())
+    }
+
     companion object {
         fun <T> just(item: T): Observable<T> {
             return JustObservable(item)
@@ -56,6 +65,10 @@ open class Observable<T> : Disposable {
 
         fun <T> fromCallable(callable: Callable<T>): Observable<T> {
             return FromCallableObservable(callable)
+        }
+
+        fun <T> fromCallable(lambda: () -> T): Observable<T> {
+            return FromCallableObservable(lambda.toCallable())
         }
 
         fun <T> empty(): Observable<T> {
@@ -70,8 +83,8 @@ open class Observable<T> : Disposable {
             return RangeObservable(count)
         }
 
-        fun <T> create(emitter: Emitter<T>): Observable<T> {
-            return CreateObservable(emitter)
+        fun <T> create(source: EmitterSource<T>): Observable<T> {
+            return CreateObservable(source)
         }
     }
 }

@@ -1,7 +1,8 @@
 package com.example.rxjava.repository
 
+import com.example.rxjava.emitter.Emitter
+import com.example.rxjava.emitter.EmitterSource
 import com.example.rxjava.observables.Observable
-import com.example.rxjava.observers.Observer
 
 class PositiveNumberRepository {
     fun getNumberObservable(): Observable<Int> {
@@ -9,19 +10,14 @@ class PositiveNumberRepository {
     }
 
     private fun getObservable(): Observable<Int> {
-        return object : Observable<Int>() {
-            override fun subscribeActual(observer: Observer<Int>) {
-                observer.onNext(3)
-                observer.onNext(3)
-                observer.onNext(3)
-                observer.onNext(3)
-                observer.onNext(5)
-                observer.onNext(5)
-                observer.onNext(3)
-                observer.onNext(5)
-                observer.onNext(5)
-                observer.onComplete()
-            }
+        return Observable.create(NumberSource())
+    }
+
+    class NumberSource : EmitterSource<Int> {
+        override fun subscribe(emitter: Emitter<Int>) {
+            emitter.onNext(10)
+            emitter.onNext(1000)
+            emitter.onComplete()
         }
     }
 }
