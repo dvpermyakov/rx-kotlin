@@ -1,10 +1,8 @@
 package com.example.rxjava.observables
 
 import android.util.Log
-import com.example.rxjava.functions.FlatMapFunction
+import com.example.rxjava.functions.*
 import com.example.rxjava.functions.Function
-import com.example.rxjava.functions.MapFunction
-import com.example.rxjava.observers.Emitter
 import com.example.rxjava.observers.Observer
 import com.example.rxjava.operators.*
 
@@ -54,6 +52,10 @@ open class Observable<T> : Disposable {
     companion object {
         fun <T> just(item: T): Observable<T> {
             return JustObservable(item)
+        }
+
+        fun <T> fromCallable(callable: Callable<T>): Observable<T> {
+            return FromCallableObservable(callable)
         }
 
         fun <T> empty(): Observable<T> {
