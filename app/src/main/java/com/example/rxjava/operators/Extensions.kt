@@ -37,12 +37,12 @@ fun <T> Observable<T>.takeLast(count: Int): Observable<T> {
     return TakeLastObservable(this, count)
 }
 
-fun <T> Observable<T>.onSubscribe(function: Function): Observable<T> {
-    return OnSubscribeObservable(this, function)
+fun <T> Observable<T>.doOnSubscribe(function: Function): Observable<T> {
+    return DoOnSubscribeObservable(this, function)
 }
 
-fun <T> Observable<T>.onSubscribe(lambda: () -> Unit): Observable<T> {
-    return OnSubscribeObservable(this, lambda.toFunction())
+fun <T> Observable<T>.doOnSubscribe(lambda: () -> Unit): Observable<T> {
+    return DoOnSubscribeObservable(this, lambda.toFunction())
 }
 
 fun <T> Observable.Companion.just(item: T): Observable<T> {

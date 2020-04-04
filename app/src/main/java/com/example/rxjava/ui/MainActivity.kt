@@ -8,7 +8,7 @@ import com.example.rxjava.domain.interactors.TransactionInteractor
 import com.example.rxjava.observables.Disposable
 import com.example.rxjava.observers.Observer
 import com.example.rxjava.operators.map
-import com.example.rxjava.operators.onSubscribe
+import com.example.rxjava.operators.doOnSubscribe
 
 class MainActivity : AppCompatActivity() {
     private val interactor = TransactionInteractor()
@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
             .map { transaction ->
                 "I received a new transaction $transaction"
             }
-            .onSubscribe {
+            .doOnSubscribe {
                 Log.e("MainActivity", "Create new subscription")
             }
             .subscribe(MyActivityObserver())

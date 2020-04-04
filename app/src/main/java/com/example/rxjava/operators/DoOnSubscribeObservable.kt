@@ -4,7 +4,7 @@ import com.example.rxjava.functions.Function
 import com.example.rxjava.observables.Observable
 import com.example.rxjava.observers.Observer
 
-class OnSubscribeObservable<T>(
+class DoOnSubscribeObservable<T>(
     private val observable: Observable<T>,
     private val function: Function
 ) : Observable<T>() {
