@@ -71,6 +71,6 @@ fun <T> Observable.Companion.create(source: EmitterSource<T>): Observable<T> {
     return CreateObservable(source)
 }
 
-fun <T> Observable.Companion.merge(observable1: Observable<T>, observable2: Observable<T>) {
-    return
+fun <T> Observable.Companion.merge(observable1: Observable<T>, observable2: Observable<T>): Observable<T> {
+    return fromList(listOf(observable1, observable2)).flatMap { observable -> observable }
 }
