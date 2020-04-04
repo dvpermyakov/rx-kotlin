@@ -5,6 +5,10 @@ import com.example.rxjava.functions.*
 import com.example.rxjava.functions.Function
 import com.example.rxjava.observables.Observable
 
+fun <T> Observable<T>.buffer(count: Int): Observable<List<T>> {
+    return BufferObservable(this, count)
+}
+
 fun <T, R> Observable<T>.map(function: MapFunction<T, R>): Observable<R> {
     return MapObservable(this, function)
 }
@@ -23,6 +27,10 @@ fun <T, R> Observable<T>.flatMap(lambda: (T) -> Observable<R>): Observable<R> {
 
 fun <T> Observable<T>.distinctUntilChanged(): Observable<T> {
     return DistinctObservable(this)
+}
+
+fun <T> Observable<T>.filter(filterFunction: MapFunction<T, Boolean>): Observable<T> {
+    return FilterObservable(this, filterFunction)
 }
 
 fun <T> Observable<T>.takeLast(count: Int): Observable<T> {
@@ -44,8 +52,6 @@ fun <T> Observable.Companion.just(item: T): Observable<T> {
 fun <T> Observable.Companion.fromList(items: List<T>): Observable<T> {
     return FromListObservable(items)
 }
-
-
 
 fun <T> Observable.Companion.fromCallable(callable: Callable<T>): Observable<T> {
     return FromCallableObservable(callable)
@@ -71,6 +77,6 @@ fun <T> Observable.Companion.create(source: EmitterSource<T>): Observable<T> {
     return CreateObservable(source)
 }
 
-fun <T> Observable.Companion.merge(observable1: Observable<T>, observable2: Observable<T>): Observable<T> {
-    return fromList(listOf(observable1, observable2)).flatMap { observable -> observable }
+fun <T> Observable.Companion.mergeList(sources: List<Observable<T>>): Observable<T> {
+    return fromList(sources).flatMap { source -> source }
 }
