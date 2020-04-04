@@ -5,16 +5,20 @@ import com.example.rxjava.functions.*
 import com.example.rxjava.functions.Function
 import com.example.rxjava.observables.Observable
 
-fun <T> Observable<T>.map(function: MapFunction<T>): Observable<T> {
+fun <T, R> Observable<T>.map(function: MapFunction<T, R>): Observable<R> {
     return MapObservable(this, function)
 }
 
-fun <T> Observable<T>.map(lambda: (T) -> T): Observable<T> {
+fun <T, R> Observable<T>.map(lambda: (T) -> R): Observable<R> {
     return MapObservable(this, lambda.toFunction())
 }
 
-fun <T> Observable<T>.flatMap(function: FlatMapFunction<T>): Observable<T> {
+fun <T, R> Observable<T>.flatMap(function: FlatMapFunction<T, R>): Observable<R> {
     return FlatMapObservable(this, function)
+}
+
+fun <T, R> Observable<T>.flatMap(lambda: (T) -> Observable<R>): Observable<R> {
+    return FlatMapObservable(this, lambda.toFunction())
 }
 
 fun <T> Observable<T>.distinctUntilChanged(): Observable<T> {
@@ -36,6 +40,12 @@ fun <T> Observable<T>.onSubscribe(lambda: () -> Unit): Observable<T> {
 fun <T> Observable.Companion.just(item: T): Observable<T> {
     return JustObservable(item)
 }
+
+fun <T> Observable.Companion.fromList(items: List<T>): Observable<T> {
+    return FromListObservable(items)
+}
+
+
 
 fun <T> Observable.Companion.fromCallable(callable: Callable<T>): Observable<T> {
     return FromCallableObservable(callable)
@@ -59,4 +69,8 @@ fun Observable.Companion.range(count: Int): Observable<Int> {
 
 fun <T> Observable.Companion.create(source: EmitterSource<T>): Observable<T> {
     return CreateObservable(source)
+}
+
+fun <T> Observable.Companion.merge(observable1: Observable<T>, observable2: Observable<T>) {
+    return
 }

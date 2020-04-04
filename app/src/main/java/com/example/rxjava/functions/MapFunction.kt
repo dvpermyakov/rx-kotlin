@@ -1,12 +1,12 @@
 package com.example.rxjava.functions
 
-interface MapFunction<T> {
-    fun map(item: T): T
+interface MapFunction<T, R> {
+    fun map(item: T): R
 }
 
-fun <T> ((T) -> T).toFunction(): MapFunction<T> {
-    return object : MapFunction<T> {
-        override fun map(item: T): T {
+fun <T, R> ((T) -> R).toFunction(): MapFunction<T, R> {
+    return object : MapFunction<T, R> {
+        override fun map(item: T): R {
             return invoke(item)
         }
     }

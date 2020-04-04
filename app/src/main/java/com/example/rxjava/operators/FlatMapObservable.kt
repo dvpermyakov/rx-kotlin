@@ -4,22 +4,22 @@ import com.example.rxjava.functions.FlatMapFunction
 import com.example.rxjava.observables.Observable
 import com.example.rxjava.observers.Observer
 
-class FlatMapObservable<T>(
+class FlatMapObservable<T, R>(
     private val observable: Observable<T>,
-    private val function: FlatMapFunction<T>
-) : Observable<T>() {
+    private val function: FlatMapFunction<T, R>
+) : Observable<R>() {
 
-    override fun subscribeActual(observer: Observer<T>) {
+    override fun subscribeActual(observer: Observer<R>) {
         observable.subscribe(FlatMapObserver(observer, function))
     }
 
-    class FlatMapObserver<T>(
-        private val observer: Observer<T>,
-        private val mapping: FlatMapFunction<T>
+    class FlatMapObserver<T, R>(
+        private val observer: Observer<R>,
+        private val mapping: FlatMapFunction<T, R>
     ) : Observer<T>() {
-        override fun onNextActual(item: T) {
-            mapping.map(item).subscribe(object : Observer<T>() {
-                override fun onNextActual(item: T) {
+        override fun onNext(item: T) {
+            mapping.map(item).subscribe(object : Observer<R>() {
+                override fun onNext(item: R) {
                     observer.onNext(item)
                 }
 

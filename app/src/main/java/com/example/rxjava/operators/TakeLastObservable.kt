@@ -20,7 +20,7 @@ class TakeLastObservable<T>(
 
         private var list = mutableListOf<T>()
 
-        override fun onNextActual(item: T) {
+        override fun onNext(item: T) {
             list.add(item)
         }
 

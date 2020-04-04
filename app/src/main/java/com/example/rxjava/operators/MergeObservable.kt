@@ -1,16 +1,15 @@
 package com.example.rxjava.operators
 
-import com.example.rxjava.functions.Function
 import com.example.rxjava.observables.Observable
 import com.example.rxjava.observers.Observer
 
-class ObserveOnObservable<T>(
-    private val observable: Observable<T>,
-    private val function: Function
+class MergeObservable<T>(
+    private val observable1: Observable<T>,
+    private val observable2: Observable<T>
 ) : Observable<T>() {
 
     override fun subscribeActual(observer: Observer<T>) {
-        function.action()
-        observable.subscribe(observer)
+        observable1.subscribe(observer)
+        observable2.subscribe(observer)
     }
 }

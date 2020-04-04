@@ -3,13 +3,14 @@ package com.example.rxjava
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import com.example.rxjava.interactors.NumberInteractor
+import com.example.rxjava.interactors.TransactionInteractor
 import com.example.rxjava.observables.Disposable
 import com.example.rxjava.observers.Observer
+import com.example.rxjava.operators.map
 import com.example.rxjava.operators.onSubscribe
 
 class MainActivity : AppCompatActivity() {
-    private val interactor = NumberInteractor()
+    private val interactor = TransactionInteractor()
 
     private var disposable: Disposable? = null
 
@@ -21,8 +22,13 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        disposable = interactor.getNumberObservable()
-            .onSubscribe { }
+        disposable = interactor.getAllTransactions()
+            .map { transaction ->
+                "I received a new transaction $transaction"
+            }
+            .onSubscribe {
+                Log.e("MainActivity", "Create new subscription")
+            }
             .subscribe(MyActivityObserver())
     }
 
@@ -32,8 +38,8 @@ class MainActivity : AppCompatActivity() {
         disposable = null
     }
 
-    class MyActivityObserver : Observer<Int>() {
-        override fun onNextActual(item: Int) {
+    class MyActivityObserver : Observer<String>() {
+        override fun onNext(item: String) {
             Log.e("MainActivity", "onNext = $item")
         }
 

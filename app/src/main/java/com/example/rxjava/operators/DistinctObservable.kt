@@ -17,7 +17,7 @@ class DistinctObservable<T>(
 
         private var current: T? = null
 
-        override fun onNextActual(item: T) {
+        override fun onNext(item: T) {
             if (current != item) {
                 observer.onNext(item)
             }
