@@ -5,9 +5,10 @@ import com.example.rxjava.domain.model.Transaction
 import com.example.rxjava.domain.repository.CardRepository
 import com.example.rxjava.domain.repository.TransactionRepository
 import com.example.rxjava.observables.Observable
+import com.example.rxjava.operators.concatList
 import com.example.rxjava.operators.doOnNext
-import com.example.rxjava.operators.flatMap
 import com.example.rxjava.operators.subscribeOn
+import com.example.rxjava.operators.switchMap
 import com.example.rxjava.shedulers.ThreadScheduler
 
 class TransactionInteractor {
@@ -15,13 +16,19 @@ class TransactionInteractor {
     private val transactionRepository = TransactionRepository()
 
     fun getAllTransactions(): Observable<Transaction> {
-        return cardRepository.getMyCards()
+        return Observable.concatList(
+            listOf(
+                cardRepository.getMyCards().subscribeOn(ThreadScheduler()),
+                cardRepository.getOtherCards().subscribeOn(ThreadScheduler())
+            )
+        )
+            .doOnNext { Log.e(TAG, "card = $it") }
             .subscribeOn(ThreadScheduler())
-            .doOnNext { Log.e(TAG, "card = $it, thread = ${Thread.currentThread()}") }
-            .flatMap { card ->
-                transactionRepository.getTransactions(card).subscribeOn(ThreadScheduler())
+            .switchMap { card ->
+                transactionRepository.getTransactions(card)
+                    .subscribeOn(ThreadScheduler())
+                    .doOnNext { Log.e(TAG, "transaction = $it for card = ${card.id}") }
             }
-            .doOnNext { Log.e(TAG, "transaction = $it, thread = ${Thread.currentThread()}") }
     }
 
     companion object {
