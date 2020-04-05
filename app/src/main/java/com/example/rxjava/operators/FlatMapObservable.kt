@@ -6,11 +6,11 @@ import com.example.rxjava.observers.Observer
 
 class FlatMapObservable<T, R>(
     private val observable: Observable<T>,
-    private val function: ObservableMapFunction<T, R>
+    private val mapping: ObservableMapFunction<T, R>
 ) : Observable<R>() {
 
     override fun subscribeActual(observer: Observer<R>) {
-        observable.subscribe(FlatMapObserver(observer, function))
+        observable.subscribe(FlatMapObserver(observer, mapping))
     }
 
     class FlatMapObserver<T, R>(
