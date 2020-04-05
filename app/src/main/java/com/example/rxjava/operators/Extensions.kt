@@ -38,7 +38,7 @@ fun <T, R> Observable<T>.map(lambda: (T) -> R): Observable<R> {
     return MapObservable(this, lambda.toFunction())
 }
 
-fun <T, R> Observable<T>.flatMap(function: FlatMapFunction<T, R>): Observable<R> {
+fun <T, R> Observable<T>.flatMap(function: ObservableMapFunction<T, R>): Observable<R> {
     return FlatMapObservable(this, function)
 }
 

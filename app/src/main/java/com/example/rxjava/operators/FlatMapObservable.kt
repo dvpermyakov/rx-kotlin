@@ -1,12 +1,12 @@
 package com.example.rxjava.operators
 
-import com.example.rxjava.functions.FlatMapFunction
+import com.example.rxjava.functions.ObservableMapFunction
 import com.example.rxjava.observables.Observable
 import com.example.rxjava.observers.Observer
 
 class FlatMapObservable<T, R>(
     private val observable: Observable<T>,
-    private val function: FlatMapFunction<T, R>
+    private val function: ObservableMapFunction<T, R>
 ) : Observable<R>() {
 
     override fun subscribeActual(observer: Observer<R>) {
@@ -15,7 +15,7 @@ class FlatMapObservable<T, R>(
 
     class FlatMapObserver<T, R>(
         private val observer: Observer<R>,
-        private val mapping: FlatMapFunction<T, R>
+        private val mapping: ObservableMapFunction<T, R>
     ) : Observer<T>() {
 
         private var mainState: State = State.Subscribed
