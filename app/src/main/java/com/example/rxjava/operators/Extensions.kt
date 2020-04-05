@@ -22,6 +22,10 @@ fun <T> Observable<T>.observeOn(scheduler: Scheduler): Observable<T> {
     return ObserveOnObservable(this, scheduler)
 }
 
+fun <T> Observable<T>.subscribeOn(scheduler: Scheduler): Observable<T> {
+    return SubscribeOnObservable(this, scheduler)
+}
+
 fun <T> Observable<T>.buffer(count: Int): Observable<List<T>> {
     return BufferObservable(this, count)
 }
