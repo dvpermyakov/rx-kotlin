@@ -102,6 +102,10 @@ fun <T> Observable.Companion.mergeList(sources: List<Observable<T>>): Observable
     return fromList(sources).flatMap { source -> source }
 }
 
+fun <T> Observable.Companion.concat(sources: List<Observable<T>>): Observable<T> {
+    return ConcatObservable(sources)
+}
+
 fun <T, R> Observable.Companion.zipList(
     zipper: Zipper<T, R>,
     sources: List<Observable<T>>
