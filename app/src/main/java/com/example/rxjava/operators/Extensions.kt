@@ -6,7 +6,15 @@ import com.example.rxjava.functions.Function
 import com.example.rxjava.observables.Observable
 import com.example.rxjava.shedulers.Scheduler
 
-fun <T> Observable<T>.observeOn(scheduler: Scheduler) : Observable<T> {
+fun <T> Observable<T>.doOnNext(function: ApplyFunction<T>): Observable<T> {
+    return DoOnNextObservable(this, function)
+}
+
+fun <T> Observable<T>.doOnNext(lambda: (T) -> Unit): Observable<T> {
+    return DoOnNextObservable(this, lambda.toFunction())
+}
+
+fun <T> Observable<T>.observeOn(scheduler: Scheduler): Observable<T> {
     return ObserveOnObservable(this, scheduler)
 }
 

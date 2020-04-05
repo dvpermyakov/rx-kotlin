@@ -11,3 +11,15 @@ fun (() -> Unit).toFunction(): Function {
         }
     }
 }
+
+interface ApplyFunction<T> {
+    fun apply(item: T)
+}
+
+fun <T> ((T) -> Unit).toFunction(): ApplyFunction<T> {
+    return object : ApplyFunction<T> {
+        override fun apply(item: T) {
+            invoke(item)
+        }
+    }
+}
