@@ -35,7 +35,7 @@ class ZipObservable<T, R>(
             }
         }
 
-        fun onNextForIndex(index: Int, item: T) {
+        fun onNextForIndex(item: T, index: Int) {
             if (!isDone) {
                 items[index].offer(item)
 
@@ -67,7 +67,7 @@ class ZipObservable<T, R>(
     ) : Observer<T>() {
 
         override fun onNext(item: T) {
-            coordinator.onNextForIndex(index, item)
+            coordinator.onNextForIndex(item, index)
         }
 
         override fun onComplete() {
