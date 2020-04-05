@@ -54,6 +54,14 @@ fun <T, R> Observable<T>.concatMap(lambda: (T) -> Observable<R>): Observable<R> 
     return ConcatMapObservable(this, lambda.toFunction())
 }
 
+fun <T, R> Observable<T>.switchMap(function: ObservableMapFunction<T, R>): Observable<R> {
+    return SwitchMapObservable(this, function)
+}
+
+fun <T, R> Observable<T>.switchMap(lambda: (T) -> Observable<R>): Observable<R> {
+    return SwitchMapObservable(this, lambda.toFunction())
+}
+
 fun <T> Observable<T>.distinctUntilChanged(): Observable<T> {
     return DistinctObservable(this)
 }
