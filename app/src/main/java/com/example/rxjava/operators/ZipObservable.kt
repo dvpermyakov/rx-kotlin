@@ -3,6 +3,7 @@ package com.example.rxjava.operators
 import com.example.rxjava.functions.Zipper
 import com.example.rxjava.observables.Observable
 import com.example.rxjava.observers.Observer
+import java.util.*
 
 class ZipObservable<T, R>(
     private val observables: List<Observable<T>>,
@@ -17,13 +18,12 @@ class ZipObservable<T, R>(
         private val observer: Observer<R>,
         private val zipper: Zipper<T, R>
     ) {
-        private var items: MutableList<T?> = mutableListOf()
-        private var isCancelled = false
-        private var completableSet = mutableSetOf<Int>()
+        private var items: MutableList<Queue<T>> = mutableListOf()
+        private var isDone = false
 
         fun subscribe(observables: List<Observable<T>>) {
             repeat(observables.count()) {
-                items.add(null)
+                items.add(LinkedList())
             }
             observables.forEachIndexed { index, observable ->
                 observable.subscribe(
@@ -36,40 +36,28 @@ class ZipObservable<T, R>(
         }
 
         fun onNextForIndex(index: Int, item: T) {
-            if (!isCancelled) {
-                items[index] = item
+            if (!isDone) {
+                items[index].offer(item)
 
-                getValidItems()?.let { validItems ->
-                    observer.onNext(zipper.apply(validItems))
-                    (0 until items.count()).forEach { index ->
-                        items[index] = null
-                    }
+                if (items.all { queue -> queue.isNotEmpty() }) {
+                    val value = zipper.apply(items.map { queue -> queue.poll() })
+                    observer.onNext(value)
                 }
             }
         }
 
         fun sendError(t: Throwable) {
-            isCancelled = true
-            observer.onError(t)
+            if (!isDone) {
+                isDone = true
+                observer.onError(t)
+            }
         }
 
-        fun sendCompletable(index: Int) {
-            completableSet.add(index)
-            if (completableSet.containsAll((0 until items.count()).toList())) {
+        fun sendCompletable() {
+            if (!isDone) {
+                isDone = true
                 observer.onComplete()
             }
-        }
-
-        private fun getValidItems(): List<T>? {
-            val validItems = mutableListOf<T>()
-            items.forEach { item ->
-                if (item == null) {
-                    return null
-                } else {
-                    validItems.add(item)
-                }
-            }
-            return validItems
         }
     }
 
@@ -83,7 +71,7 @@ class ZipObservable<T, R>(
         }
 
         override fun onComplete() {
-            coordinator.sendCompletable(index)
+            coordinator.sendCompletable()
         }
 
         override fun onError(t: Throwable) {
