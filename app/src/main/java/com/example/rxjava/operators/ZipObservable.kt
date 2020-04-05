@@ -18,7 +18,7 @@ class ZipObservable<T, R>(
         private val observer: Observer<R>,
         private val zipper: Zipper<T, R>
     ) {
-        private var items: MutableList<Queue<T>> = mutableListOf()
+        private val items: MutableList<Queue<T>> = mutableListOf()
         private var isDone = false
 
         fun subscribe(observables: List<Observable<T>>) {

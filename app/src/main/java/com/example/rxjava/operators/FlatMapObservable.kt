@@ -19,7 +19,7 @@ class FlatMapObservable<T, R>(
     ) : Observer<T>() {
 
         private var mainState: State = State.Subscribed
-        private var innerObservers = mutableListOf<FlatMapInnerObserver<R>>()
+        private val innerObservers = mutableListOf<FlatMapInnerObserver<R>>()
 
         override fun onNext(item: T) {
             if (mainState is State.Subscribed) {
