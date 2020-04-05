@@ -4,6 +4,11 @@ import com.example.rxjava.emitter.EmitterSource
 import com.example.rxjava.functions.*
 import com.example.rxjava.functions.Function
 import com.example.rxjava.observables.Observable
+import com.example.rxjava.shedulers.Scheduler
+
+fun <T> Observable<T>.observeOn(scheduler: Scheduler) : Observable<T> {
+    return ObserveOnObservable(this, scheduler)
+}
 
 fun <T> Observable<T>.buffer(count: Int): Observable<List<T>> {
     return BufferObservable(this, count)
