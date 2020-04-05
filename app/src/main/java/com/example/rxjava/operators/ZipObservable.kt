@@ -18,6 +18,8 @@ class ZipObservable<T, R>(
         private val zipper: Zipper<T, R>
     ) {
         private var items: MutableList<T?> = mutableListOf()
+        private var isCancelled = false
+        private var completableSet = mutableSetOf<Int>()
 
         fun subscribe(observables: List<Observable<T>>) {
             repeat(observables.count()) {
@@ -26,7 +28,6 @@ class ZipObservable<T, R>(
             observables.forEachIndexed { index, observable ->
                 observable.subscribe(
                     ZipObserver(
-                        observer = observer,
                         index = index,
                         coordinator = this
                     )
@@ -34,17 +35,29 @@ class ZipObservable<T, R>(
             }
         }
 
-        fun setItem(index: Int, item: T): R? {
-            items[index] = item
+        fun onNextForIndex(index: Int, item: T) {
+            if (!isCancelled) {
+                items[index] = item
 
-            var result: R? = null
-            getValidItems()?.let { validItems ->
-                result = zipper.apply(validItems)
-                (0 until items.count()).forEach { index ->
-                    items[index] = null
+                getValidItems()?.let { validItems ->
+                    observer.onNext(zipper.apply(validItems))
+                    (0 until items.count()).forEach { index ->
+                        items[index] = null
+                    }
                 }
             }
-            return result
+        }
+
+        fun sendError(t: Throwable) {
+            isCancelled = true
+            observer.onError(t)
+        }
+
+        fun sendCompletable(index: Int) {
+            completableSet.add(index)
+            if (completableSet.containsAll((0 until items.count()).toList())) {
+                observer.onComplete()
+            }
         }
 
         private fun getValidItems(): List<T>? {
@@ -61,23 +74,20 @@ class ZipObservable<T, R>(
     }
 
     class ZipObserver<T, R>(
-        private val observer: Observer<R>,
         private val index: Int,
         private val coordinator: ZipCoordinator<T, R>
     ) : Observer<T>() {
 
         override fun onNext(item: T) {
-            coordinator.setItem(index, item)?.let { result ->
-                observer.onNext(result)
-            }
+            coordinator.onNextForIndex(index, item)
         }
 
         override fun onComplete() {
-            observer.onComplete()
+            coordinator.sendCompletable(index)
         }
 
         override fun onError(t: Throwable) {
-            observer.onError(t)
+            coordinator.sendError(t)
         }
     }
 }
