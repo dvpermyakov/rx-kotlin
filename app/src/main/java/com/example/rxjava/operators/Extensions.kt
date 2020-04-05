@@ -6,6 +6,10 @@ import com.example.rxjava.functions.Function
 import com.example.rxjava.observables.Observable
 import com.example.rxjava.shedulers.Scheduler
 
+fun <T> Observable<T>.delay(delayMs: Long): Observable<T> {
+    return DelayObservable(this, delayMs)
+}
+
 fun <T> Observable<T>.doOnNext(function: ApplyFunction<T>): Observable<T> {
     return DoOnNextObservable(this, function)
 }
