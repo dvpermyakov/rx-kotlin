@@ -48,14 +48,14 @@ class FlatMapObservable<T, R>(
             }
         }
 
-        inner class FlatMapInnerObserver<T>(
-            private val observer: Observer<T>
-        ) : Observer<T>() {
+        inner class FlatMapInnerObserver<R>(
+            private val observer: Observer<R>
+        ) : Observer<R>() {
 
             var isCancelled = false
             var isCompleted = false
 
-            override fun onNext(item: T) {
+            override fun onNext(item: R) {
                 if (!isCancelled) {
                     observer.onNext(item)
                 }
