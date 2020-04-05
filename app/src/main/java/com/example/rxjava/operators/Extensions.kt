@@ -46,6 +46,14 @@ fun <T, R> Observable<T>.flatMap(lambda: (T) -> Observable<R>): Observable<R> {
     return FlatMapObservable(this, lambda.toFunction())
 }
 
+fun <T, R> Observable<T>.concatMap(function: ObservableMapFunction<T, R>): Observable<R> {
+    return ConcatMapObservable(this, function)
+}
+
+fun <T, R> Observable<T>.concatMap(lambda: (T) -> Observable<R>): Observable<R> {
+    return ConcatMapObservable(this, lambda.toFunction())
+}
+
 fun <T> Observable<T>.distinctUntilChanged(): Observable<T> {
     return DistinctObservable(this)
 }
