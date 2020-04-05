@@ -13,4 +13,9 @@ abstract class Observer<T> {
 
     abstract fun onError(t: Throwable)
 
+    sealed class State {
+        object Subscribed : State()
+        object Completed : State()
+        object Error : State()
+    }
 }

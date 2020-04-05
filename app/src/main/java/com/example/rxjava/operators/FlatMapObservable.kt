@@ -17,30 +17,57 @@ class FlatMapObservable<T, R>(
         private val observer: Observer<R>,
         private val mapping: FlatMapFunction<T, R>
     ) : Observer<T>() {
+
+        private var mainState: State = State.Subscribed
+        private var innerObservers = mutableListOf<FlatMapInnerObserver<R>>()
+
         override fun onNext(item: T) {
-            mapping.map(item).subscribe(FlatMapInnerObserver(observer))
+            if (mainState is State.Subscribed) {
+                val observer = FlatMapInnerObserver(observer)
+                innerObservers.add(observer)
+                mapping.map(item).subscribe(observer)
+            }
         }
 
         override fun onComplete() {
-            observer.onComplete()
+            mainState = State.Completed
+            tryToComplete()
         }
 
         override fun onError(t: Throwable) {
+            mainState = State.Error
+            innerObservers.forEach { observer ->
+                observer.isCancelled = true
+            }
             observer.onError(t)
         }
 
-        class FlatMapInnerObserver<T>(
+        private fun tryToComplete() {
+            if (innerObservers.all { observer -> observer.isCompleted } && mainState is State.Completed) {
+                observer.onComplete()
+            }
+        }
+
+        inner class FlatMapInnerObserver<T>(
             private val observer: Observer<T>
         ) : Observer<T>() {
+
+            var isCancelled = false
+            var isCompleted = false
+
             override fun onNext(item: T) {
-                observer.onNext(item)
+                if (!isCancelled) {
+                    observer.onNext(item)
+                }
             }
 
             override fun onComplete() {
+                isCompleted = true
+                this@FlatMapObserver.tryToComplete()
             }
 
             override fun onError(t: Throwable) {
-                observer.onError(t)
+                this@FlatMapObserver.onError(t)
             }
         }
     }
