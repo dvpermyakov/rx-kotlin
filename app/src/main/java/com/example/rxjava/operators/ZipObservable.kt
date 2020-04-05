@@ -46,14 +46,14 @@ class ZipObservable<T, R>(
             }
         }
 
-        fun sendError(t: Throwable) {
+        fun onError(t: Throwable) {
             if (!isDone) {
                 isDone = true
                 observer.onError(t)
             }
         }
 
-        fun sendCompletable() {
+        fun onComplete() {
             if (!isDone) {
                 isDone = true
                 observer.onComplete()
@@ -71,11 +71,11 @@ class ZipObservable<T, R>(
         }
 
         override fun onComplete() {
-            coordinator.sendCompletable()
+            coordinator.onComplete()
         }
 
         override fun onError(t: Throwable) {
-            coordinator.sendError(t)
+            coordinator.onError(t)
         }
     }
 }
