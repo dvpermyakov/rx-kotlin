@@ -9,8 +9,9 @@ interface Observer<T> {
     fun onError(t: Throwable)
 
     sealed class State {
+        object Idle : State()
         object Subscribed : State()
         object Completed : State()
-        object Error : State()
+        data class Error(val t: Throwable) : State()
     }
 }

@@ -38,7 +38,7 @@ class ConcatMapObservable<T, R>(
         }
 
         override fun onError(t: Throwable) {
-            mainState = State.Error
+            mainState = State.Error(t)
             innerObservers.forEach { observer ->
                 observer.isCancelled = true
             }
