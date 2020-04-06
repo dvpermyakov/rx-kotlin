@@ -1,17 +1,12 @@
 package com.example.rxjava.observers
 
-import com.example.rxjava.observables.Disposable
+interface Observer<T> {
 
-abstract class Observer<T> {
+    fun onNext(item: T)
 
-    open fun onSubscribe(disposable: Disposable) {
-    }
+    fun onComplete()
 
-    abstract fun onNext(item: T)
-
-    abstract fun onComplete()
-
-    abstract fun onError(t: Throwable)
+    fun onError(t: Throwable)
 
     sealed class State {
         object Subscribed : State()

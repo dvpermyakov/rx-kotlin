@@ -15,7 +15,7 @@ class BufferObservable<T>(
     class BufferObserver<T>(
         private val observer: Observer<List<T>>,
         private val count: Int
-    ) : Observer<T>() {
+    ) : Observer<T> {
 
         private val list = mutableListOf<T>()
 

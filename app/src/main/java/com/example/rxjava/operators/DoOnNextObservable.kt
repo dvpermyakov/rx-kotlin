@@ -16,7 +16,7 @@ class DoOnNextObservable<T>(
     class DoOnNextObserver<T>(
         private val observer: Observer<T>,
         private val function: ApplyFunction<T>
-    ) : Observer<T>() {
+    ) : Observer<T> {
         override fun onNext(item: T) {
             function.apply(item)
             observer.onNext(item)

@@ -15,7 +15,7 @@ class DelayObservable<T>(
     class DelayObserver<T>(
         private val observer: Observer<T>,
         private val delayMs: Long
-    ) : Observer<T>() {
+    ) : Observer<T> {
 
         override fun onNext(item: T) {
             Thread.sleep(delayMs)

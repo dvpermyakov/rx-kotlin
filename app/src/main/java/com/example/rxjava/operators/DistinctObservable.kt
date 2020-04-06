@@ -13,7 +13,7 @@ class DistinctObservable<T>(
 
     class DistinctObserver<T>(
         private val observer: Observer<T>
-    ) : Observer<T>() {
+    ) : Observer<T> {
 
         private var current: T? = null
 

@@ -16,7 +16,7 @@ class FilterObservable<T>(
     class FilterObserver<T>(
         private val observer: Observer<T>,
         private val filterFunction: MapFunction<T, Boolean>
-    ) : Observer<T>() {
+    ) : Observer<T> {
 
         override fun onNext(item: T) {
             if (filterFunction.map(item)) {

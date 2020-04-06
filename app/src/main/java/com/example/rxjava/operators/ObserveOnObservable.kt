@@ -16,7 +16,7 @@ class ObserveOnObservable<T>(
     class ObserveOnObserver<T>(
         private val observer: Observer<T>,
         private val scheduler: Scheduler
-    ) : Observer<T>() {
+    ) : Observer<T> {
 
         override fun onNext(item: T) {
             scheduler.schedule(Runnable { observer.onNext(item) })

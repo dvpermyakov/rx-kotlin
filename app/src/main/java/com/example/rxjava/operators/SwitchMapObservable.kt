@@ -3,6 +3,7 @@ package com.example.rxjava.operators
 import com.example.rxjava.functions.ObservableMapFunction
 import com.example.rxjava.observables.Observable
 import com.example.rxjava.observers.Observer
+import com.example.rxjava.observers.Observer.State
 
 class SwitchMapObservable<T, R>(
     private val observable: Observable<T>,
@@ -16,7 +17,7 @@ class SwitchMapObservable<T, R>(
     class SwitchMapObserver<T, R>(
         private val observer: Observer<R>,
         private val mapping: ObservableMapFunction<T, R>
-    ) : Observer<T>() {
+    ) : Observer<T> {
 
         private var mainState: State = State.Subscribed
         private var currentObservable: SwitchMapInnerObserver<R>? = null
@@ -46,7 +47,7 @@ class SwitchMapObservable<T, R>(
 
         inner class SwitchMapInnerObserver<R>(
             private val observer: Observer<R>
-        ) : Observer<R>() {
+        ) : Observer<R> {
 
             var isCancelled = false
 

@@ -3,6 +3,7 @@ package com.example.rxjava.operators
 import com.example.rxjava.functions.ObservableMapFunction
 import com.example.rxjava.observables.Observable
 import com.example.rxjava.observers.Observer
+import com.example.rxjava.observers.Observer.State
 
 class FlatMapObservable<T, R>(
     private val observable: Observable<T>,
@@ -16,7 +17,7 @@ class FlatMapObservable<T, R>(
     class FlatMapObserver<T, R>(
         private val observer: Observer<R>,
         private val mapping: ObservableMapFunction<T, R>
-    ) : Observer<T>() {
+    ) : Observer<T> {
 
         private var mainState: State = State.Subscribed
         private val innerObservers = mutableListOf<FlatMapInnerObserver<R>>()
@@ -50,7 +51,7 @@ class FlatMapObservable<T, R>(
 
         inner class FlatMapInnerObserver<R>(
             private val observer: Observer<R>
-        ) : Observer<R>() {
+        ) : Observer<R> {
 
             var isCancelled = false
             var isCompleted = false

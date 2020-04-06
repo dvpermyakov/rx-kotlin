@@ -3,6 +3,7 @@ package com.example.rxjava.operators
 import com.example.rxjava.functions.ObservableMapFunction
 import com.example.rxjava.observables.Observable
 import com.example.rxjava.observers.Observer
+import com.example.rxjava.observers.Observer.State
 
 class ConcatMapObservable<T, R>(
     private val observable: Observable<T>,
@@ -16,7 +17,7 @@ class ConcatMapObservable<T, R>(
     class ConcatMapObserver<T, R>(
         private val observer: Observer<R>,
         private val mapping: ObservableMapFunction<T, R>
-    ) : Observer<T>() {
+    ) : Observer<T> {
 
         private var currentIndex = 0
 
@@ -70,7 +71,7 @@ class ConcatMapObservable<T, R>(
 
         inner class ConcatMapInnerObserver(
             private val index: Int
-        ) : Observer<R>() {
+        ) : Observer<R> {
 
             var isCancelled = false
             var isCompleted = false

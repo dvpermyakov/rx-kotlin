@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         disposable = null
     }
 
-    class MyActivityObserver : Observer<String>() {
+    class MyActivityObserver : Observer<String> {
         override fun onNext(item: String) {
             Log.e(TAG, "onNext = $item")
         }

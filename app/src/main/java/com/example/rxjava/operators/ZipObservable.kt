@@ -64,7 +64,7 @@ class ZipObservable<T, R>(
     class ZipObserver<T, R>(
         private val index: Int,
         private val coordinator: ZipCoordinator<T, R>
-    ) : Observer<T>() {
+    ) : Observer<T> {
 
         override fun onNext(item: T) {
             coordinator.onNextForIndex(item, index)

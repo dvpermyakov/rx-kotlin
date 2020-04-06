@@ -16,7 +16,7 @@ class MapObservable<T, R>(
     class MapObserver<T, R>(
         private val observer: Observer<R>,
         private val mapping: MapFunction<T, R>
-    ) : Observer<T>() {
+    ) : Observer<T> {
         override fun onNext(item: T) {
             observer.onNext(mapping.map(item))
         }

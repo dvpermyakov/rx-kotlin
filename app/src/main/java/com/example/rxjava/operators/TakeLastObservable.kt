@@ -16,7 +16,7 @@ class TakeLastObservable<T>(
     class TakeLastObserver<T>(
         private val observer: Observer<T>,
         private val count: Int
-    ) : Observer<T>() {
+    ) : Observer<T> {
 
         private var list = mutableListOf<T>()
 
