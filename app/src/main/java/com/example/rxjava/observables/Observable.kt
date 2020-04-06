@@ -7,6 +7,7 @@ open class Observable<T> : Disposable {
 
     open fun subscribeActual(observer: Observer<T>) = Unit
 
+    // todo: it doesn't work with several subscriptions
     fun subscribe(observer: Observer<T>): Disposable {
         subscribeActual(observer)
         this.observer = observer
