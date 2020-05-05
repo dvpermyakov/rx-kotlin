@@ -1,6 +1,6 @@
 Pure Kotlin reactive operators without third party libraries for educational purposes
 ------------------------------------------------------------
-
+[![Download](https://api.bintray.com/packages/dvpermyakov/rx-kotlin/core/images/download.svg) ](https://bintray.com/dvpermyakov/rx-kotlin/core/_latestVersion)
 
 * Buffer
 * ConcatMap
