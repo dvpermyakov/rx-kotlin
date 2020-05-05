@@ -37,6 +37,7 @@ proguard/
 captures/
 
 # IntelliJ
+/*.iml
 *.iml
 /.idea
 
