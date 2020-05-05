@@ -15,13 +15,21 @@ dependencies {
     implementation(kotlin("stdlib"))
 }
 
-group = "com.dvpermyakov"
-version = "0.1"
+val sourcesJar by tasks.creating(Jar::class) {
+    dependsOn(JavaPlugin.CLASSES_TASK_NAME)
+    classifier = "sources"
+    from(sourceSets["main"].allSource)
+}
 
 publishing {
     publications {
-        create<MavenPublication>("default") {
+        create<MavenPublication>("mavenJava") {
+            group = "com.dvpermyakov"
+            version = "0.1"
+            artifactId = "rx-kotlin"
+
             from(components["java"])
+            artifact(sourcesJar)
         }
     }
     repositories {
