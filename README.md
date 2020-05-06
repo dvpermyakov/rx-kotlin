@@ -1,6 +1,9 @@
-Pure Kotlin reactive operators without third party libraries for educational purposes
+Rx-kotlin for educational purposes
 ------------------------------------------------------------
-[![Download](https://api.bintray.com/packages/dvpermyakov/rx-kotlin/core/images/download.svg) ](https://bintray.com/dvpermyakov/rx-kotlin/core/_latestVersion)
+[![CircleCI](https://circleci.com/gh/dvpermyakov/rx-kotlin/tree/master.svg?style=shield)](https://circleci.com/gh/dvpermyakov/rx-kotlin/tree/master)
+
+[![Bintray](https://api.bintray.com/packages/dvpermyakov/rx-kotlin/core/images/download.svg)](https://bintray.com/dvpermyakov/rx-kotlin/core/_latestVersion)
+
 
 * Buffer
 * ConcatMap
