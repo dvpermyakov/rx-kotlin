@@ -1,37 +1,38 @@
 Rx-kotlin for educational purposes
 ------------------------------------------------------------
 [![CircleCI](https://circleci.com/gh/dvpermyakov/rx-kotlin/tree/master.svg?style=shield)](https://circleci.com/gh/dvpermyakov/rx-kotlin/tree/master)
-
 [![Bintray](https://api.bintray.com/packages/dvpermyakov/rx-kotlin/core/images/download.svg)](https://bintray.com/dvpermyakov/rx-kotlin/core/_latestVersion)
 
-
-* Buffer
-* ConcatMap
-* Create
-* Distinct
-* DoOnNext
-* DoOnSubscribe
-* Empty
-* Filter
-* FlatMap
-* FromCallable
-* FromList
-* Just
-* Map
-* Observe
-* Range
-* Subscribe
-* SubscrubeOn
-* SwitchMap
-* TakeLast
-* Zip
-
-
-* AsyncSubject
-* BehaviorSubject
-* PublishSubject
-* ReplaySubject
-
+1. Creating
+    * Create
+    * Just
+    * Empty
+    * FromCallable
+    * FromList
+    * Range
+2. Transforming
+    * Buffer
+    * Map
+    * FlatMap
+    * ConcatMap
+    * SwitchMap
+3. Filtering
+    * Filter
+    * Distinct
+    * TakeLast
+4. Combining
+    * Merge
+    * Zip
+5. Utility
+    * DoOnNext
+    * DoOnSubscribe
+    * Subscribe
+    * SubscrubeOn
+6. Subjects
+    * AsyncSubject
+    * BehaviorSubject
+    * PublishSubject
+    * ReplaySubject
 
 ```Kotlin
 class TransactionInteractor {
