@@ -1,4 +1,4 @@
-Rx-kotlin for educational purposes
+rx-kotlin operators
 ------------------------------------------------------------
 [![CircleCI](https://circleci.com/gh/dvpermyakov/rx-kotlin/tree/master.svg?style=shield)](https://circleci.com/gh/dvpermyakov/rx-kotlin/tree/master)
 [![Bintray](https://api.bintray.com/packages/dvpermyakov/rx-kotlin/core/images/download.svg)](https://bintray.com/dvpermyakov/rx-kotlin/core/_latestVersion)
@@ -33,7 +33,20 @@ Rx-kotlin for educational purposes
     * BehaviorSubject
     * PublishSubject
     * ReplaySubject
+    
+Gradle: 
+```Groovy
+repositories {
+   maven { 
+      url  "https://dl.bintray.com/dvpermyakov/rx-kotlin"
+   }
+}
+dependencies {
+   implementation 'com.dvpermyakov:rx-kotlin:0.1'
+}
+```
 
+Example:
 ```Kotlin
 class TransactionInteractor {
     private val cardRepository = CardRepository()
