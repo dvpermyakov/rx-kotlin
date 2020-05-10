@@ -14,9 +14,9 @@ rx-kotlin operators
     * Range
 2. Transforming
     * Buffer
-    * Map
-    * FlatMap
     * ConcatMap
+    * FlatMap
+    * Map
     * SwitchMap
 3. Filtering
     * Filter
