@@ -30,9 +30,9 @@ class TakeLastObservable<T>(
         }
 
         override fun onComplete() {
-            list.reverse()
-            (0..min(count, list.lastIndex)).forEach { index ->
-                observer.onNext(list[index])
+            val count = min(count, list.lastIndex)
+            (count - 1 downTo 0).forEach { index ->
+                observer.onNext(list[list.lastIndex - index])
             }
             observer.onComplete()
         }
