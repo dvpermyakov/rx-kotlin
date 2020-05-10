@@ -28,9 +28,8 @@ rx-kotlin operators
 5. Utility
     * DoOnNext
     * DoOnSubscribe
-    * Subscribe
-    * SubscrubeOn
     * ObserveOn
+    * SubscrubeOn
 6. Subjects
     * AsyncSubject
     * BehaviorSubject
