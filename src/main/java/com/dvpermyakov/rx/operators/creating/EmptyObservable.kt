@@ -1,10 +1,11 @@
-package com.dvpermyakov.rx.operators
+package com.dvpermyakov.rx.operators.creating
 
 import com.dvpermyakov.rx.observables.Observable
 import com.dvpermyakov.rx.observers.Observer
 
-class NeverObservable<T> : Observable<T>() {
+class EmptyObservable<T> : Observable<T>() {
 
     override fun subscribeActual(observer: Observer<T>) {
+        observer.onComplete()
     }
 }

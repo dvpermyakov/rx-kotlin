@@ -13,6 +13,9 @@ sourceSets.main {
 
 dependencies {
     implementation(kotlin("stdlib"))
+
+    testImplementation("junit:junit:4.13")
+    testImplementation("io.mockk:mockk:1.10.0")
 }
 
 val sourcesJar by tasks.creating(Jar::class) {

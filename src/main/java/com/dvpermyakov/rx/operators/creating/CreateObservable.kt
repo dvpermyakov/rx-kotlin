@@ -1,4 +1,4 @@
-package com.dvpermyakov.rx.operators
+package com.dvpermyakov.rx.operators.creating
 
 import com.dvpermyakov.rx.emitter.Emitter
 import com.dvpermyakov.rx.emitter.EmitterSource
@@ -10,7 +10,11 @@ class CreateObservable<T>(
 ) : Observable<T>() {
 
     override fun subscribeActual(observer: Observer<T>) {
-        source.subscribe(EmitterObserver(observer))
+        source.subscribe(
+            EmitterObserver(
+                observer
+            )
+        )
     }
 
     class EmitterObserver<T>(

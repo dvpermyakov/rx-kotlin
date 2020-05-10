@@ -1,15 +1,16 @@
-package com.dvpermyakov.rx.operators
+package com.dvpermyakov.rx.operators.creating
 
-import com.dvpermyakov.rx.functions.Callable
 import com.dvpermyakov.rx.observables.Observable
 import com.dvpermyakov.rx.observers.Observer
 
-class FromCallableObservable<T>(
-    private val callable: Callable<T>
+class FromListObservable<T>(
+    private val items: List<T>
 ) : Observable<T>() {
 
     override fun subscribeActual(observer: Observer<T>) {
-        observer.onNext(callable.call())
+        items.forEach { item ->
+            observer.onNext(item)
+        }
         observer.onComplete()
     }
 }
