@@ -1,4 +1,4 @@
-package com.dvpermyakov.rx.operators
+package com.dvpermyakov.rx.operators.utility
 
 import com.dvpermyakov.rx.observables.Observable
 import com.dvpermyakov.rx.observers.Observer
@@ -9,7 +9,12 @@ class DelayObservable<T>(
 ) : Observable<T>() {
 
     override fun subscribeActual(observer: Observer<T>) {
-        observable.subscribe(DelayObserver(observer, delayMs))
+        observable.subscribe(
+            DelayObserver(
+                observer,
+                delayMs
+            )
+        )
     }
 
     class DelayObserver<T>(

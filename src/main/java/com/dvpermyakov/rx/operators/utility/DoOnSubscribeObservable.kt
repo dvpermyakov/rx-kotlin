@@ -1,4 +1,4 @@
-package com.dvpermyakov.rx.operators
+package com.dvpermyakov.rx.operators.utility
 
 import com.dvpermyakov.rx.functions.Function
 import com.dvpermyakov.rx.observables.Observable

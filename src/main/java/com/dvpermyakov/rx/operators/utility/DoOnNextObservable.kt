@@ -1,4 +1,4 @@
-package com.dvpermyakov.rx.operators
+package com.dvpermyakov.rx.operators.utility
 
 import com.dvpermyakov.rx.functions.ApplyFunction
 import com.dvpermyakov.rx.observables.Observable
@@ -10,7 +10,12 @@ class DoOnNextObservable<T>(
 ) : Observable<T>() {
 
     override fun subscribeActual(observer: Observer<T>) {
-        observable.subscribe(DoOnNextObserver(observer, function))
+        observable.subscribe(
+            DoOnNextObserver(
+                observer,
+                function
+            )
+        )
     }
 
     class DoOnNextObserver<T>(

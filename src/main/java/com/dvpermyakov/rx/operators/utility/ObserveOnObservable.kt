@@ -1,4 +1,4 @@
-package com.dvpermyakov.rx.operators
+package com.dvpermyakov.rx.operators.utility
 
 import com.dvpermyakov.rx.observables.Observable
 import com.dvpermyakov.rx.observers.Observer
@@ -10,7 +10,12 @@ class ObserveOnObservable<T>(
 ) : Observable<T>() {
 
     override fun subscribeActual(observer: Observer<T>) {
-        observable.subscribe(ObserveOnObserver(observer, scheduler))
+        observable.subscribe(
+            ObserveOnObserver(
+                observer,
+                scheduler
+            )
+        )
     }
 
     class ObserveOnObserver<T>(

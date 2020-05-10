@@ -1,11 +1,8 @@
-package com.dvpermyakov.rx.operators
+package com.dvpermyakov.rx.operators.utility
 
 import com.dvpermyakov.rx.functions.*
 import com.dvpermyakov.rx.functions.Function
 import com.dvpermyakov.rx.observables.Observable
-import com.dvpermyakov.rx.operators.combining.ZipObservable
-import com.dvpermyakov.rx.operators.creating.fromList
-import com.dvpermyakov.rx.operators.transforming.*
 import com.dvpermyakov.rx.shedulers.Scheduler
 
 fun <T> Observable<T>.delay(delayMs: Long): Observable<T> {
