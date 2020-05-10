@@ -6,20 +6,21 @@ rx-kotlin operators
 
 1. Creating
     * Create
-    * Just
     * Empty
     * FromCallable
     * FromList
+    * Just
+    * Never
     * Range
 2. Transforming
     * Buffer
-    * Map
-    * FlatMap
     * ConcatMap
+    * FlatMap
+    * Map
     * SwitchMap
 3. Filtering
-    * Filter
     * Distinct
+    * Filter
     * TakeLast
 4. Combining
     * Merge
@@ -27,9 +28,8 @@ rx-kotlin operators
 5. Utility
     * DoOnNext
     * DoOnSubscribe
-    * Subscribe
-    * SubscrubeOn
     * ObserveOn
+    * SubscrubeOn
 6. Subjects
     * AsyncSubject
     * BehaviorSubject
