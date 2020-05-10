@@ -1,4 +1,4 @@
-package com.dvpermyakov.rx.operators
+package com.dvpermyakov.rx.operators.filtering
 
 import com.dvpermyakov.rx.functions.MapFunction
 import com.dvpermyakov.rx.observables.Observable
@@ -10,7 +10,12 @@ class FilterObservable<T>(
 ) : Observable<T>() {
 
     override fun subscribeActual(observer: Observer<T>) {
-        observable.subscribe(FilterObserver(observer, filterFunction))
+        observable.subscribe(
+            FilterObserver(
+                observer,
+                filterFunction
+            )
+        )
     }
 
     class FilterObserver<T>(

@@ -1,4 +1,4 @@
-package com.dvpermyakov.rx.operators
+package com.dvpermyakov.rx.operators.filtering
 
 import com.dvpermyakov.rx.observables.Observable
 import com.dvpermyakov.rx.observers.Observer
@@ -10,7 +10,12 @@ class TakeLastObservable<T>(
 ) : Observable<T>() {
 
     override fun subscribeActual(observer: Observer<T>) {
-        observable.subscribe(TakeLastObserver(observer, count))
+        observable.subscribe(
+            TakeLastObserver(
+                observer,
+                count
+            )
+        )
     }
 
     class TakeLastObserver<T>(

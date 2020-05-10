@@ -1,4 +1,4 @@
-package com.dvpermyakov.rx.operators
+package com.dvpermyakov.rx.operators.filtering
 
 import com.dvpermyakov.rx.observables.Observable
 import com.dvpermyakov.rx.observers.Observer
@@ -8,7 +8,11 @@ class DistinctObservable<T>(
 ) : Observable<T>() {
 
     override fun subscribeActual(observer: Observer<T>) {
-        observable.subscribe(DistinctObserver(observer))
+        observable.subscribe(
+            DistinctObserver(
+                observer
+            )
+        )
     }
 
     class DistinctObserver<T>(
