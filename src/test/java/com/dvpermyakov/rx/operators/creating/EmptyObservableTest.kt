@@ -1,19 +1,19 @@
-package com.dvpermyakov.rx.operators
+package com.dvpermyakov.rx.operators.creating
 
 import com.dvpermyakov.rx.observables.Observable
 import com.dvpermyakov.rx.observer.TestObserver
+import com.dvpermyakov.rx.operators.empty
 import org.junit.Test
 
-
-class NeverObservableTest {
+class EmptyObservableTest {
 
     @Test
-    fun never() {
+    fun empty() {
         val observer = TestObserver<Any>()
-        Observable.never<Any>().subscribe(observer)
+        Observable.empty<Any>().subscribe(observer)
 
         observer
             .assertCount(0)
-            .assertIdle()
+            .assertCompletion()
     }
 }
