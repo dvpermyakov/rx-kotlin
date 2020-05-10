@@ -22,7 +22,7 @@ fun <T, R> Observable<T>.flatMap(function: ObservableMapFunction<T, R>): Observa
 }
 
 fun <T, R> Observable<T>.flatMap(lambda: (T) -> Observable<R>): Observable<R> {
-    return FlatMapObservable(this, lambda.toFunction())
+    return flatMap(lambda.toFunction())
 }
 
 fun <T, R> Observable<T>.concatMap(function: ObservableMapFunction<T, R>): Observable<R> {
@@ -30,7 +30,7 @@ fun <T, R> Observable<T>.concatMap(function: ObservableMapFunction<T, R>): Obser
 }
 
 fun <T, R> Observable<T>.concatMap(lambda: (T) -> Observable<R>): Observable<R> {
-    return ConcatMapObservable(this, lambda.toFunction())
+    return concatMap(lambda.toFunction())
 }
 
 fun <T, R> Observable<T>.switchMap(function: ObservableMapFunction<T, R>): Observable<R> {
@@ -38,5 +38,5 @@ fun <T, R> Observable<T>.switchMap(function: ObservableMapFunction<T, R>): Obser
 }
 
 fun <T, R> Observable<T>.switchMap(lambda: (T) -> Observable<R>): Observable<R> {
-    return SwitchMapObservable(this, lambda.toFunction())
+    return switchMap(lambda.toFunction())
 }

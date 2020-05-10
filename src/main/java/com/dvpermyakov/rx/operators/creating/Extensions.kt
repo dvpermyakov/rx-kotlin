@@ -1,6 +1,8 @@
 package com.dvpermyakov.rx.operators.creating
 
+import com.dvpermyakov.rx.emitter.Emitter
 import com.dvpermyakov.rx.emitter.EmitterSource
+import com.dvpermyakov.rx.emitter.toEmitterSource
 import com.dvpermyakov.rx.functions.Callable
 import com.dvpermyakov.rx.functions.toCallable
 import com.dvpermyakov.rx.observables.Observable
@@ -18,7 +20,7 @@ fun <T> Observable.Companion.fromCallable(callable: Callable<T>): Observable<T> 
 }
 
 fun <T> Observable.Companion.fromCallable(lambda: () -> T): Observable<T> {
-    return FromCallableObservable(lambda.toCallable())
+    return fromCallable(lambda.toCallable())
 }
 
 fun <T> Observable.Companion.empty(): Observable<T> {
@@ -35,4 +37,8 @@ fun Observable.Companion.range(count: Int): Observable<Int> {
 
 fun <T> Observable.Companion.create(source: EmitterSource<T>): Observable<T> {
     return CreateObservable(source)
+}
+
+fun <T> Observable.Companion.create(lambda: (Emitter<T>) -> Unit): Observable<T> {
+    return create(lambda.toEmitterSource())
 }
