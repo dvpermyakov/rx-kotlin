@@ -19,8 +19,8 @@ rx-kotlin operators
     * Map
     * SwitchMap
 3. Filtering
-    * Filter
     * Distinct
+    * Filter
     * TakeLast
 4. Combining
     * Merge
