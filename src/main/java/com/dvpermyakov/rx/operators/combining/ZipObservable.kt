@@ -1,4 +1,4 @@
-package com.dvpermyakov.rx.operators
+package com.dvpermyakov.rx.operators.combining
 
 import com.dvpermyakov.rx.functions.Zipper
 import com.dvpermyakov.rx.observables.Observable
