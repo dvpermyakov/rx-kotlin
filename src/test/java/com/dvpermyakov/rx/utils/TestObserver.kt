@@ -11,6 +11,7 @@ class TestObserver<T> : Observer<T> {
 
     override fun onNext(item: T) {
         if (state in listOf(Observer.State.Idle, Observer.State.Subscribed)) {
+            state = Observer.State.Subscribed
             list.add(item)
         } else {
             throw IllegalStateException("onNext with item ($item) in state ($state)")
@@ -27,6 +28,13 @@ class TestObserver<T> : Observer<T> {
 
     fun assertIdle(): TestObserver<T> {
         Assert.assertEquals(state, Observer.State.Idle)
+        return this
+    }
+
+    fun assertIdleOrSubscribed(): TestObserver<T> {
+        Assert.assertTrue(
+            state in listOf(Observer.State.Idle, Observer.State.Subscribed)
+        )
         return this
     }
 
