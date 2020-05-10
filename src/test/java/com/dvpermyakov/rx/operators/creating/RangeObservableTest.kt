@@ -1,7 +1,7 @@
 package com.dvpermyakov.rx.operators.creating
 
 import com.dvpermyakov.rx.observables.Observable
-import com.dvpermyakov.rx.observer.TestObserver
+import com.dvpermyakov.rx.utils.TestObserver
 import com.dvpermyakov.rx.operators.range
 import org.junit.Test
 

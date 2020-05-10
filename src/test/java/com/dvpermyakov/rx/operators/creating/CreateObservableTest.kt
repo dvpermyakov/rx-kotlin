@@ -3,7 +3,7 @@ package com.dvpermyakov.rx.operators.creating
 import com.dvpermyakov.rx.emitter.Emitter
 import com.dvpermyakov.rx.emitter.EmitterSource
 import com.dvpermyakov.rx.observables.Observable
-import com.dvpermyakov.rx.observer.TestObserver
+import com.dvpermyakov.rx.utils.TestObserver
 import com.dvpermyakov.rx.operators.create
 import org.junit.Test
 import java.lang.IllegalArgumentException

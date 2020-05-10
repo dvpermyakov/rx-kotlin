@@ -1,4 +1,4 @@
-package com.dvpermyakov.rx.observer
+package com.dvpermyakov.rx.utils
 
 import com.dvpermyakov.rx.observers.Observer
 import org.junit.Assert

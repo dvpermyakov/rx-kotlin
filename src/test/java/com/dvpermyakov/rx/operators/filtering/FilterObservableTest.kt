@@ -1,7 +1,7 @@
 package com.dvpermyakov.rx.operators.filtering
 
 import com.dvpermyakov.rx.observables.Observable
-import com.dvpermyakov.rx.observer.TestObserver
+import com.dvpermyakov.rx.utils.TestObserver
 import com.dvpermyakov.rx.operators.filter
 import com.dvpermyakov.rx.operators.fromList
 import org.junit.Test
