@@ -6,11 +6,11 @@ rx-kotlin operators
 
 1. Creating
     * Create
-    * Just
     * Empty
-    * Never
     * FromCallable
     * FromList
+    * Just
+    * Never
     * Range
 2. Transforming
     * Buffer
