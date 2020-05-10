@@ -8,6 +8,7 @@ rx-kotlin operators
     * Create
     * Just
     * Empty
+    * Never
     * FromCallable
     * FromList
     * Range
