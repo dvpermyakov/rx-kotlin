@@ -28,7 +28,7 @@ jobs:
           command: ./gradlew assemble
       - run:
           name: Publish Maven artifact
-          command: ./gradlew dependencies
+          command: ./gradlew publish
       - store_artifacts:
           path: build/repository
           destination: repository
