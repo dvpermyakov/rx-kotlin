@@ -1,4 +1,4 @@
-package com.dvpermyakov.rx.operators
+package com.dvpermyakov.rx.operators.transforming
 
 import com.dvpermyakov.rx.functions.ObservableMapFunction
 import com.dvpermyakov.rx.observables.Observable
@@ -11,7 +11,12 @@ class SwitchMapObservable<T, R>(
 ) : Observable<R>() {
 
     override fun subscribeActual(observer: Observer<R>) {
-        observable.subscribe(SwitchMapObserver(observer, mapping))
+        observable.subscribe(
+            SwitchMapObserver(
+                observer,
+                mapping
+            )
+        )
     }
 
     class SwitchMapObserver<T, R>(

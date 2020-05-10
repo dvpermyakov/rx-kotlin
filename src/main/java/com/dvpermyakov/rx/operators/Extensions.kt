@@ -6,6 +6,7 @@ import com.dvpermyakov.rx.functions.Function
 import com.dvpermyakov.rx.functions.toFunction
 import com.dvpermyakov.rx.observables.Observable
 import com.dvpermyakov.rx.operators.creating.*
+import com.dvpermyakov.rx.operators.transforming.*
 import com.dvpermyakov.rx.shedulers.Scheduler
 
 fun <T> Observable<T>.delay(delayMs: Long): Observable<T> {

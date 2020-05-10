@@ -1,4 +1,4 @@
-package com.dvpermyakov.rx.operators
+package com.dvpermyakov.rx.operators.transforming
 
 import com.dvpermyakov.rx.functions.MapFunction
 import com.dvpermyakov.rx.observables.Observable
@@ -10,7 +10,12 @@ class MapObservable<T, R>(
 ) : Observable<R>() {
 
     override fun subscribeActual(observer: Observer<R>) {
-        observable.subscribe(MapObserver(observer, function))
+        observable.subscribe(
+            MapObserver(
+                observer,
+                function
+            )
+        )
     }
 
     class MapObserver<T, R>(

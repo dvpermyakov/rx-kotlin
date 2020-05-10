@@ -1,4 +1,4 @@
-package com.dvpermyakov.rx.operators
+package com.dvpermyakov.rx.operators.transforming
 
 import com.dvpermyakov.rx.observables.Observable
 import com.dvpermyakov.rx.observers.Observer
@@ -9,7 +9,12 @@ class BufferObservable<T>(
 ) : Observable<List<T>>() {
 
     override fun subscribeActual(observer: Observer<List<T>>) {
-        observable.subscribe(BufferObserver(observer, count))
+        observable.subscribe(
+            BufferObserver(
+                observer,
+                count
+            )
+        )
     }
 
     class BufferObserver<T>(
