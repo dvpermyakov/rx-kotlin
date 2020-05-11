@@ -26,6 +26,13 @@ class TestObserver<T> : Observer<T> {
         state = Observer.State.Error(t)
     }
 
+    fun waitForFinished(): TestObserver<T> {
+        while (state == Observer.State.Idle || state is Observer.State.Subscribed) {
+            Thread.sleep(100L)
+        }
+        return this
+    }
+
     fun assertIdle(): TestObserver<T> {
         Assert.assertEquals(state, Observer.State.Idle)
         return this
