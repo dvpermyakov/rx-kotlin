@@ -1,36 +1,54 @@
 package com.dvpermyakov.rx.operators.combining
 
 import com.dvpermyakov.rx.observables.Observable
-import com.dvpermyakov.rx.operators.creating.fromList
+import com.dvpermyakov.rx.operators.creating.create
+import com.dvpermyakov.rx.operators.utility.subscribeOn
+import com.dvpermyakov.rx.shedulers.ThreadScheduler
 import com.dvpermyakov.rx.utils.TestObserver
 import org.junit.Ignore
 import org.junit.Test
 
 class ConcatObservableTest {
 
-    @Test
     @Ignore
-    fun concat() {
-        val values1 = listOf(1, 2, 3)
-        val values2 = listOf(4, 5, 6)
-        val values = values1 + values2
+    @Test(timeout = 10000L)
+    fun concatListAsync() {
+        val intObservable1 = Observable.create<Int> { emitter ->
+            emitter.onNext(1)  // 0L
+            Thread.sleep(200L)
+            emitter.onNext(2)  // 200L
+            Thread.sleep(400L)
+            emitter.onNext(3)  // 600L
+            emitter.onComplete()
+        }.subscribeOn(ThreadScheduler())
+        val intObservable2 = Observable.create<Int> { emitter ->
+            Thread.sleep(100L)
+            emitter.onNext(100)  // 100L
+            Thread.sleep(200L)
+            emitter.onNext(200)  // 300L
+            Thread.sleep(100L)
+            emitter.onNext(300)  // 400L
+            emitter.onComplete()
+        }.subscribeOn(ThreadScheduler())
 
         val observer = TestObserver<Int>()
         Observable.concatList(
             listOf(
-                Observable.fromList(values1),
-                Observable.fromList(values2)
+                intObservable1,
+                intObservable2
             )
-        ).subscribe(observer)
+        ).subscribeOn(ThreadScheduler()).subscribe(observer)
 
         observer
-            .assertCount(values.size)
-            .assertAtIndex(0, values[0])
-            .assertAtIndex(1, values[1])
-            .assertAtIndex(2, values[2])
-            .assertAtIndex(3, values[3])
-            .assertAtIndex(4, values[4])
-            .assertAtIndex(5, values[5])
+            .waitForFinished()
+            .assertCount(6)
+            .assertAtIndex(0, 1)
+            .assertAtIndex(1, 2)
+            .assertAtIndex(2, 3)
+            .assertAtIndex(3, 100)
+            .assertAtIndex(4, 200)
+            .assertAtIndex(5, 300)
             .assertCompletion()
     }
+
 }
