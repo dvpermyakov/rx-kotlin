@@ -18,7 +18,6 @@ fun getOrderObservable(): Observable<Order> {
         emitter.onNext(Order.Second)
         Thread.sleep(200L)
         emitter.onNext(Order.Third)
-        Thread.sleep(5000L)
         emitter.onComplete()
     }.subscribeOn(ThreadScheduler())
 }

@@ -38,6 +38,9 @@ class SwitchMapObservable<T, R>(
 
         override fun onComplete() {
             mainState = State.Completed
+            if (currentObservable?.isCompleted == true) {
+                observer.onComplete()
+            }
         }
 
         override fun onError(t: Throwable) {
@@ -45,7 +48,7 @@ class SwitchMapObservable<T, R>(
         }
 
         private fun tryToComplete() {
-            if (mainState !is State.Completed) {
+            if (mainState is State.Completed) {
                 observer.onComplete()
             }
         }
@@ -55,6 +58,7 @@ class SwitchMapObservable<T, R>(
         ) : Observer<R> {
 
             var isCancelled = false
+            var isCompleted = false
 
             override fun onNext(item: R) {
                 if (!isCancelled) {
@@ -64,6 +68,7 @@ class SwitchMapObservable<T, R>(
 
             override fun onComplete() {
                 if (!isCancelled) {
+                    isCompleted = true
                     this@SwitchMapObserver.tryToComplete()
                 }
             }

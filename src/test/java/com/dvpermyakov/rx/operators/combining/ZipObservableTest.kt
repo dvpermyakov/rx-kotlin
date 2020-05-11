@@ -10,7 +10,7 @@ import org.junit.Test
 
 class ZipObservableTest {
 
-    @Test
+    @Test(timeout = 10000L)
     fun zip() {
         val observableInt = Observable.create<Int> { emitter ->
             Thread.sleep(50L)

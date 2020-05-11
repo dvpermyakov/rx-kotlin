@@ -9,7 +9,7 @@ import org.junit.Test
 
 class SwitchMapObservableTest {
 
-    @Test
+    @Test(timeout = 10000L)
     fun switchMapAsync() {
         val observer = TestObserver<String>()
         getOrderObservable()

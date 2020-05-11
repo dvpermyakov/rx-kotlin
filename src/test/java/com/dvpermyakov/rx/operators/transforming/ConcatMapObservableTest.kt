@@ -9,7 +9,7 @@ import org.junit.Test
 
 class ConcatMapObservableTest {
 
-    @Test
+    @Test(timeout = 10000L)
     fun concatMapAsync() {
         val observer = TestObserver<String>()
         getOrderObservable()

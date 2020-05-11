@@ -1,12 +1,10 @@
 package com.dvpermyakov.rx.operators.transforming
 
 import com.dvpermyakov.rx.observables.Observable
-import com.dvpermyakov.rx.operators.creating.create
 import com.dvpermyakov.rx.operators.creating.fromList
 import com.dvpermyakov.rx.operators.creating.just
 import com.dvpermyakov.rx.operators.utility.subscribeOn
 import com.dvpermyakov.rx.shedulers.ThreadScheduler
-import com.dvpermyakov.rx.utils.Order
 import com.dvpermyakov.rx.utils.TestObserver
 import com.dvpermyakov.rx.utils.getOrderObservable
 import com.dvpermyakov.rx.utils.getStringByOrderObservable
@@ -35,7 +33,7 @@ class FlatMapObservableTest {
             .assertCompletion()
     }
 
-    @Test
+    @Test(timeout = 10000L)
     fun flatMapAsync() {
         val observer = TestObserver<String>()
         getOrderObservable()
