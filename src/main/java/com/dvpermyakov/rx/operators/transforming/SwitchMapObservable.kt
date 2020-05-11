@@ -45,7 +45,7 @@ class SwitchMapObservable<T, R>(
         }
 
         private fun tryToComplete() {
-            if (mainState is State.Completed) {
+            if (mainState !is State.Completed) {
                 observer.onComplete()
             }
         }
