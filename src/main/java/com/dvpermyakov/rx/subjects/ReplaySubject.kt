@@ -34,6 +34,7 @@ class ReplaySubject<T> : Subject<T>() {
     }
 
     override fun onNext(item: T) {
+        items.add(item)
         observers.forEach { observer ->
             observer.onNext(item)
         }
