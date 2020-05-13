@@ -34,7 +34,7 @@ class TestObserver<T> : Observer<T> {
     }
 
     fun assertIdle(): TestObserver<T> {
-        Assert.assertEquals(state, Observer.State.Idle)
+        Assert.assertEquals(Observer.State.Idle, state)
         return this
     }
 
@@ -46,22 +46,22 @@ class TestObserver<T> : Observer<T> {
     }
 
     fun assertCompletion(): TestObserver<T> {
-        Assert.assertEquals(state, Observer.State.Completed)
+        Assert.assertEquals(Observer.State.Completed, state)
         return this
     }
 
     fun assertError(error: Throwable): TestObserver<T> {
-        Assert.assertEquals(state, Observer.State.Error(error))
+        Assert.assertEquals(Observer.State.Error(error), state)
         return this
     }
 
     fun assertCount(count: Int): TestObserver<T> {
-        Assert.assertEquals(list.size, count)
+        Assert.assertEquals(count, list.size)
         return this
     }
 
     fun assertAtIndex(index: Int, value: T): TestObserver<T> {
-        Assert.assertEquals(list[index], value)
+        Assert.assertEquals(value, list[index])
         return this
     }
 }
