@@ -18,6 +18,8 @@ class DoOnSubscribeObservableTest {
                 observer.assertIdleOrSubscribed()
             }
             .subscribe(observer)
+
+        observer.waitForFinished()
     }
 
 }

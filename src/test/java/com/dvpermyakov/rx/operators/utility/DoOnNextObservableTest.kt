@@ -21,6 +21,8 @@ class DoOnNextObservableTest {
                 Assert.assertEquals(value, values[index++])
             }
             .subscribe(observer)
+
+        observer.waitForFinished()
     }
 
 }
