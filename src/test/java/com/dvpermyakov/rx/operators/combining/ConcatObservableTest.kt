@@ -5,12 +5,10 @@ import com.dvpermyakov.rx.operators.creating.create
 import com.dvpermyakov.rx.operators.utility.subscribeOn
 import com.dvpermyakov.rx.shedulers.ThreadScheduler
 import com.dvpermyakov.rx.utils.TestObserver
-import org.junit.Ignore
 import org.junit.Test
 
 class ConcatObservableTest {
 
-    @Ignore
     @Test(timeout = 10000L)
     fun concatListAsync() {
         val intObservable1 = Observable.create<Int> { emitter ->

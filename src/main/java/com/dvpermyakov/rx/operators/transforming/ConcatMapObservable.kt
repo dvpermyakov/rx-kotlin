@@ -60,7 +60,7 @@ class ConcatMapObservable<T, R>(
 
         private fun tryToComplete(index: Int) {
             if (mainState !is State.Error) {
-                if (innerObservers.all { observer -> observer.isCompleted } && mainState is State.Completed) {
+                if (currentIndex == innerObservers.lastIndex && innerObservers.all { observer -> observer.isCompleted } && mainState is State.Completed) {
                     observer.onComplete()
                 } else if (index == currentIndex) {
                     currentIndex++
