@@ -3,12 +3,10 @@ package com.dvpermyakov.rx.operators.transforming
 import com.dvpermyakov.rx.observables.Observable
 import com.dvpermyakov.rx.operators.creating.fromList
 import com.dvpermyakov.rx.utils.TestObserver
-import org.junit.Ignore
 import org.junit.Test
 
 class BufferObservableTest {
 
-    @Ignore
     @Test
     fun buffer() {
         val v1 = listOf(10, 20, 30)
