@@ -2,12 +2,11 @@ package com.dvpermyakov.rx.utils
 
 import com.dvpermyakov.rx.observers.Observer
 import org.junit.Assert
-import java.lang.IllegalStateException
-
+import java.util.concurrent.LinkedBlockingQueue
 
 class TestObserver<T> : Observer<T> {
     private var state: Observer.State = Observer.State.Idle
-    private val list = mutableListOf<T>()
+    private val list = LinkedBlockingQueue<T>()
 
     override fun onNext(item: T) {
         if (state in listOf(Observer.State.Idle, Observer.State.Subscribed)) {
@@ -61,7 +60,7 @@ class TestObserver<T> : Observer<T> {
     }
 
     fun assertAtIndex(index: Int, value: T): TestObserver<T> {
-        Assert.assertEquals(value, list[index])
+        Assert.assertEquals(value, list.elementAt(index))
         return this
     }
 }
