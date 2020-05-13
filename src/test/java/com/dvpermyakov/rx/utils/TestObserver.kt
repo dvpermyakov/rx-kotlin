@@ -4,7 +4,7 @@ import com.dvpermyakov.rx.observers.Observer
 import org.junit.Assert
 import java.util.concurrent.LinkedBlockingQueue
 
-class TestObserver<T> : Observer<T> {
+open class TestObserver<T> : Observer<T> {
     private var state: Observer.State = Observer.State.Idle
     private val list = LinkedBlockingQueue<T>()
 
