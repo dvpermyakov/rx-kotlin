@@ -77,6 +77,7 @@ class SubscribeOnObservableTest {
                 threadScheduler1.lastExecutedThread?.name,
                 Thread.currentThread().name
             )
+            emitter.onNext(1)
             emitter.onComplete()
         }.subscribeOn(threadScheduler1)
 
@@ -86,17 +87,18 @@ class SubscribeOnObservableTest {
                 threadScheduler2.lastExecutedThread?.name,
                 Thread.currentThread().name
             )
+            emitter.onNext(2)
             emitter.onComplete()
         }.subscribeOn(threadScheduler2)
 
-
+        val threadScheduler3 = ThreadScheduler()
         val testObserver = TestObserver<Int>()
         Observable.mergeList(
             listOf(
                 observable1,
                 observable2
             )
-        ).subscribe(testObserver)
+        ).map { item -> item }.subscribeOn(threadScheduler3).subscribe(testObserver)
         testObserver.waitForFinished()
     }
 
