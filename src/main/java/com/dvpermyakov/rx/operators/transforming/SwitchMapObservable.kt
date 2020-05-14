@@ -24,8 +24,12 @@ class SwitchMapObservable<T, R>(
         private val mapping: ObservableMapFunction<T, R>
     ) : Observer<T> {
 
-        private var mainState: State = State.Subscribed
+        private var mainState: State = State.Idle
         private var currentObservable: SwitchMapInnerObserver<R>? = null
+
+        override fun onSubscribe() {
+            mainState = State.Subscribed
+        }
 
         override fun onNext(item: T) {
             if (mainState is State.Subscribed) {
