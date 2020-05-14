@@ -14,7 +14,7 @@ fun <T> Observable<T>.doOnNext(function: ApplyFunction<T>): Observable<T> {
 }
 
 fun <T> Observable<T>.doOnNext(lambda: (T) -> Unit): Observable<T> {
-    return DoOnNextObservable(this, lambda.toFunction())
+    return doOnNext(lambda.toFunction())
 }
 
 fun <T> Observable<T>.observeOn(scheduler: Scheduler): Observable<T> {
@@ -30,5 +30,5 @@ fun <T> Observable<T>.doOnSubscribe(function: Function): Observable<T> {
 }
 
 fun <T> Observable<T>.doOnSubscribe(lambda: () -> Unit): Observable<T> {
-    return DoOnSubscribeObservable(this, lambda.toFunction())
+    return doOnSubscribe(lambda.toFunction())
 }

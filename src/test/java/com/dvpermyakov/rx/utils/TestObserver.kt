@@ -2,16 +2,18 @@ package com.dvpermyakov.rx.utils
 
 import com.dvpermyakov.rx.observers.Observer
 import org.junit.Assert
-import java.lang.IllegalStateException
+import java.util.concurrent.LinkedBlockingQueue
 
-
-class TestObserver<T> : Observer<T> {
+open class TestObserver<T> : Observer<T> {
     private var state: Observer.State = Observer.State.Idle
-    private val list = mutableListOf<T>()
+    private val list = LinkedBlockingQueue<T>()
+
+    override fun onSubscribe() {
+        state = Observer.State.Subscribed
+    }
 
     override fun onNext(item: T) {
-        if (state in listOf(Observer.State.Idle, Observer.State.Subscribed)) {
-            state = Observer.State.Subscribed
+        if (state == Observer.State.Subscribed) {
             list.add(item)
         } else {
             throw IllegalStateException("onNext with item ($item) in state ($state)")
@@ -26,35 +28,35 @@ class TestObserver<T> : Observer<T> {
         state = Observer.State.Error(t)
     }
 
-    fun assertIdle(): TestObserver<T> {
-        Assert.assertEquals(state, Observer.State.Idle)
+    fun waitForFinished(): TestObserver<T> {
+        while (state == Observer.State.Idle || state is Observer.State.Subscribed) {
+            Thread.sleep(100L)
+        }
         return this
     }
 
-    fun assertIdleOrSubscribed(): TestObserver<T> {
-        Assert.assertTrue(
-            state in listOf(Observer.State.Idle, Observer.State.Subscribed)
-        )
+    fun assertSubscribed(): TestObserver<T> {
+        Assert.assertEquals(Observer.State.Subscribed, state)
         return this
     }
 
     fun assertCompletion(): TestObserver<T> {
-        Assert.assertEquals(state, Observer.State.Completed)
+        Assert.assertEquals(Observer.State.Completed, state)
         return this
     }
 
     fun assertError(error: Throwable): TestObserver<T> {
-        Assert.assertEquals(state, Observer.State.Error(error))
+        Assert.assertEquals(Observer.State.Error(error), state)
         return this
     }
 
     fun assertCount(count: Int): TestObserver<T> {
-        Assert.assertEquals(list.size, count)
+        Assert.assertEquals(count, list.size)
         return this
     }
 
     fun assertAtIndex(index: Int, value: T): TestObserver<T> {
-        Assert.assertEquals(list[index], value)
+        Assert.assertEquals(value, list.elementAt(index))
         return this
     }
 }

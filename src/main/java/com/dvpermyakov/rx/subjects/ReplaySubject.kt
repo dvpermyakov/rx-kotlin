@@ -12,7 +12,6 @@ class ReplaySubject<T> : Subject<T>() {
         super.subscribeActual(observer)
         when (state) {
             State.Idle, State.Subscribed -> {
-                state = State.Subscribed
                 observers.add(observer)
                 items.forEach { item ->
                     observer.onNext(item)
@@ -33,7 +32,12 @@ class ReplaySubject<T> : Subject<T>() {
         }
     }
 
+    override fun onSubscribe() {
+        state = State.Subscribed
+    }
+
     override fun onNext(item: T) {
+        items.add(item)
         observers.forEach { observer ->
             observer.onNext(item)
         }
@@ -51,10 +55,6 @@ class ReplaySubject<T> : Subject<T>() {
         observers.forEach { observer ->
             observer.onError(t)
         }
-    }
-
-    override fun dispose() {
-        observers.clear()
     }
 
 }

@@ -12,7 +12,6 @@ class BehaviourSubject<T> : Subject<T>() {
         super.subscribeActual(observer)
         when (state) {
             State.Idle, State.Subscribed -> {
-                state = State.Subscribed
                 observers.add(observer)
                 lastItem?.let(observer::onNext)
             }
@@ -23,6 +22,10 @@ class BehaviourSubject<T> : Subject<T>() {
                 observer.onComplete()
             }
         }
+    }
+
+    override fun onSubscribe() {
+        state = State.Subscribed
     }
 
     override fun onNext(item: T) {
@@ -46,7 +49,4 @@ class BehaviourSubject<T> : Subject<T>() {
         }
     }
 
-    override fun dispose() {
-        observers.clear()
-    }
 }

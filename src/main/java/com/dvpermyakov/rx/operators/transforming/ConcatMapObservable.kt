@@ -26,8 +26,12 @@ class ConcatMapObservable<T, R>(
 
         private var currentIndex = 0
 
-        private var mainState: State = State.Subscribed
+        private var mainState: State = State.Idle
         private val innerObservers = mutableListOf<ConcatMapInnerObserver>()
+
+        override fun onSubscribe() {
+            mainState = State.Subscribed
+        }
 
         override fun onNext(item: T) {
             if (mainState is State.Subscribed) {
@@ -60,7 +64,7 @@ class ConcatMapObservable<T, R>(
 
         private fun tryToComplete(index: Int) {
             if (mainState !is State.Error) {
-                if (innerObservers.all { observer -> observer.isCompleted } && mainState is State.Completed) {
+                if (currentIndex == innerObservers.lastIndex && innerObservers.all { observer -> observer.isCompleted } && mainState is State.Completed) {
                     observer.onComplete()
                 } else if (index == currentIndex) {
                     currentIndex++

@@ -27,8 +27,4 @@ class PublishSubject<T> : Subject<T>() {
             observer.onError(t)
         }
     }
-
-    override fun dispose() {
-        observers.clear()
-    }
 }

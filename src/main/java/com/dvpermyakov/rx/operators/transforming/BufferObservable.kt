@@ -27,14 +27,14 @@ class BufferObservable<T>(
         override fun onNext(item: T) {
             list.add(item)
             if (list.size >= count) {
-                observer.onNext(list.subList(0, count))
+                observer.onNext(ArrayList(list.subList(0, count)))
                 list.clear()
             }
         }
 
         override fun onComplete() {
             if (list.isNotEmpty()) {
-                observer.onNext(list)
+                observer.onNext(ArrayList(list))
             }
             observer.onComplete()
         }

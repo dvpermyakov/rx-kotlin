@@ -2,6 +2,8 @@ package com.dvpermyakov.rx.observers
 
 interface Observer<T> {
 
+    fun onSubscribe() = Unit
+
     fun onNext(item: T)
 
     fun onComplete()

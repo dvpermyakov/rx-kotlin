@@ -24,8 +24,12 @@ class SwitchMapObservable<T, R>(
         private val mapping: ObservableMapFunction<T, R>
     ) : Observer<T> {
 
-        private var mainState: State = State.Subscribed
+        private var mainState: State = State.Idle
         private var currentObservable: SwitchMapInnerObserver<R>? = null
+
+        override fun onSubscribe() {
+            mainState = State.Subscribed
+        }
 
         override fun onNext(item: T) {
             if (mainState is State.Subscribed) {
@@ -38,6 +42,9 @@ class SwitchMapObservable<T, R>(
 
         override fun onComplete() {
             mainState = State.Completed
+            if (currentObservable?.isCompleted == true) {
+                observer.onComplete()
+            }
         }
 
         override fun onError(t: Throwable) {
@@ -55,6 +62,7 @@ class SwitchMapObservable<T, R>(
         ) : Observer<R> {
 
             var isCancelled = false
+            var isCompleted = false
 
             override fun onNext(item: R) {
                 if (!isCancelled) {
@@ -64,6 +72,7 @@ class SwitchMapObservable<T, R>(
 
             override fun onComplete() {
                 if (!isCancelled) {
+                    isCompleted = true
                     this@SwitchMapObserver.tryToComplete()
                 }
             }
