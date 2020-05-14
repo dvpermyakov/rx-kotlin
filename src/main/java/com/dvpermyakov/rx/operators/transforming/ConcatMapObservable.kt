@@ -26,8 +26,12 @@ class ConcatMapObservable<T, R>(
 
         private var currentIndex = 0
 
-        private var mainState: State = State.Subscribed
+        private var mainState: State = State.Idle
         private val innerObservers = mutableListOf<ConcatMapInnerObserver>()
+
+        override fun onSubscribe() {
+            mainState = State.Subscribed
+        }
 
         override fun onNext(item: T) {
             if (mainState is State.Subscribed) {
