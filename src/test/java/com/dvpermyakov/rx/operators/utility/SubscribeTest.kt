@@ -1,11 +1,12 @@
 package com.dvpermyakov.rx.operators.utility
 
 import com.dvpermyakov.rx.observables.Observable
+import com.dvpermyakov.rx.observers.subscribeLambdas
 import com.dvpermyakov.rx.operators.creating.create
 import com.dvpermyakov.rx.operators.creating.fromCallable
 import com.dvpermyakov.rx.shedulers.ThreadScheduler
 import com.dvpermyakov.rx.utils.TestObserver
-import org.junit.Ignore
+import org.junit.Assert
 import org.junit.Test
 
 class SubscribeTest {
@@ -46,10 +47,10 @@ class SubscribeTest {
             .assertCompletion()
     }
 
-    @Ignore
     @Test(timeout = 10_000)
     fun disposable() {
         val observable = Observable.create<Int> { emitter ->
+            Thread.sleep(400)
             emitter.onNext(1)
             Thread.sleep(100)
             emitter.onNext(2)
@@ -61,19 +62,20 @@ class SubscribeTest {
             emitter.onComplete()
         }.subscribeOn(ThreadScheduler())
 
-        val observer = TestObserver<Int>()
-        val disposable = observable.subscribe(observer)
-
-        Thread.sleep(300)
+        val items = mutableListOf<Int>()
+        val disposable = observable.subscribeLambdas(
+            onNext = { item ->
+                items.add(item)
+            },
+            onComplete = {
+            },
+            onError = {
+            }
+        )
         disposable.dispose()
-        Thread.sleep(1500)
 
-        observer
-            .waitForFinished()
-            .assertCount(2)
-            .assertAtIndex(0, 1)
-            .assertAtIndex(0, 2)
-            .assertCompletion()
+        Thread.sleep(1000)
+        Assert.assertEquals(0, items.size)
     }
 
 }

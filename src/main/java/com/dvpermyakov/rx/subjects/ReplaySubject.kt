@@ -57,8 +57,4 @@ class ReplaySubject<T> : Subject<T>() {
         }
     }
 
-    override fun unsubscribeActual() {
-        observers.clear()
-    }
-
 }

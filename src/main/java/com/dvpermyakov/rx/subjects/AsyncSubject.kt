@@ -47,8 +47,4 @@ class AsyncSubject<T> : Subject<T>() {
         }
     }
 
-    override fun unsubscribeActual() {
-        observers.clear()
-    }
-
 }

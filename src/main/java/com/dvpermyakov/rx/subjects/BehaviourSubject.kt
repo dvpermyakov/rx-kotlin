@@ -49,7 +49,4 @@ class BehaviourSubject<T> : Subject<T>() {
         }
     }
 
-    override fun unsubscribeActual() {
-        observers.clear()
-    }
 }
