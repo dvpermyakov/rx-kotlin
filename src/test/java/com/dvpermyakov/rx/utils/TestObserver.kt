@@ -8,9 +8,12 @@ open class TestObserver<T> : Observer<T> {
     private var state: Observer.State = Observer.State.Idle
     private val list = LinkedBlockingQueue<T>()
 
+    override fun onSubscribe() {
+        state = Observer.State.Subscribed
+    }
+
     override fun onNext(item: T) {
-        if (state in listOf(Observer.State.Idle, Observer.State.Subscribed)) {
-            state = Observer.State.Subscribed
+        if (state == Observer.State.Subscribed) {
             list.add(item)
         } else {
             throw IllegalStateException("onNext with item ($item) in state ($state)")
@@ -32,8 +35,8 @@ open class TestObserver<T> : Observer<T> {
         return this
     }
 
-    fun assertIdle(): TestObserver<T> {
-        Assert.assertEquals(Observer.State.Idle, state)
+    fun assertSubscribed(): TestObserver<T> {
+        Assert.assertEquals(Observer.State.Subscribed, state)
         return this
     }
 

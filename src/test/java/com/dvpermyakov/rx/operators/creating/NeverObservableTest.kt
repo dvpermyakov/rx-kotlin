@@ -4,7 +4,6 @@ import com.dvpermyakov.rx.observables.Observable
 import com.dvpermyakov.rx.utils.TestObserver
 import org.junit.Test
 
-
 class NeverObservableTest {
 
     @Test
@@ -14,6 +13,6 @@ class NeverObservableTest {
 
         observer
             .assertCount(0)
-            .assertIdle()
+            .assertSubscribed()
     }
 }
