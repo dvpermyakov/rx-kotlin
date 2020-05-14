@@ -63,7 +63,6 @@ class TransactionInteractor {
             )
         )
             .doOnNext { Log.e(TAG, "card = $it") }
-            .subscribeOn(ThreadScheduler())
             .switchMap { card ->
                 transactionRepository.getTransactions(card)
                     .subscribeOn(ThreadScheduler())
