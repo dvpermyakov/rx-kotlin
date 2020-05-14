@@ -44,7 +44,7 @@ class AsyncSubject<T> : Subject<T>() {
         }
     }
 
-    override fun dispose() {
+    override fun unsubscribeActual() {
         observers.clear()
     }
 

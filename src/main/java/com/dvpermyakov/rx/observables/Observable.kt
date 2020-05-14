@@ -3,19 +3,19 @@ package com.dvpermyakov.rx.observables
 import com.dvpermyakov.rx.observers.Observer
 
 open class Observable<T> : Disposable {
-    private var observer: Observer<T>? = null
 
     open fun subscribeActual(observer: Observer<T>) = Unit
 
-    // todo: it doesn't work with several subscriptions
+    open fun unsubscribeActual() = Unit
+
     fun subscribe(observer: Observer<T>): Disposable {
+        observer.onSubscribe()
         subscribeActual(observer)
-        this.observer = observer
         return this
     }
 
-    override fun dispose() {
-        observer = null
+    final override fun dispose() {
+        unsubscribeActual()
     }
 
     companion object
