@@ -15,7 +15,7 @@ class DoOnSubscribeObservableTest {
         Observable
             .fromList(values)
             .doOnSubscribe {
-                observer.assertIdleOrSubscribed()
+                observer.assertSubscribed()
             }
             .subscribe(observer)
 

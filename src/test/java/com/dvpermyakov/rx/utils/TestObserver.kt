@@ -40,13 +40,6 @@ open class TestObserver<T> : Observer<T> {
         return this
     }
 
-    fun assertIdleOrSubscribed(): TestObserver<T> {
-        Assert.assertTrue(
-            state in listOf(Observer.State.Idle, Observer.State.Subscribed)
-        )
-        return this
-    }
-
     fun assertCompletion(): TestObserver<T> {
         Assert.assertEquals(Observer.State.Completed, state)
         return this

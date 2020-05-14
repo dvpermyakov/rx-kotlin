@@ -17,7 +17,7 @@ class DoOnNextObservableTest {
         Observable
             .fromList(values)
             .doOnNext { value ->
-                observer.assertIdleOrSubscribed()
+                observer.assertSubscribed()
                 Assert.assertEquals(value, values[index++])
             }
             .subscribe(observer)
