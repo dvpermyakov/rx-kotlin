@@ -64,7 +64,7 @@ bintray {
 
     pkg.apply {
         repo = "maven"
-        name = "rx-kotlin-core"
+        name = "com.dvpermyakov.rx-kotlin"
         vcsUrl = "https://github.com/dvpermyakov/rx-kotlin.git"
         setLicenses("MIT")
 
