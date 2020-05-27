@@ -30,6 +30,9 @@ jobs:
           name: Publish Maven artifact
           command: ./gradlew publish
       - run:
+          filters:
+            branches:
+              only: master
           name: Upload to Bintray
           command: ./gradlew bintrayUpload
       - store_artifacts:
