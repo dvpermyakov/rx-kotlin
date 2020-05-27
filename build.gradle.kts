@@ -35,7 +35,7 @@ val sourcesJar by tasks.creating(Jar::class) {
     from(sourceSets["main"].allSource)
 }
 
-val currentVersion = "0.1.3"
+val currentVersion = "0.1.4"
 
 publishing {
     publications {
