@@ -1,7 +1,7 @@
 rx-kotlin operators
 ------------------------------------------------------------
 [![CircleCI](https://circleci.com/gh/dvpermyakov/rx-kotlin/tree/master.svg?style=shield)](https://circleci.com/gh/dvpermyakov/rx-kotlin/tree/master)
-[![Bintray](https://api.bintray.com/packages/dvpermyakov/maven/rx-kotlin-core/images/download.svg)](https://bintray.com/dvpermyakov/maven/rx-kotlin-core/_latestVersion)
+[![Bintray](https://api.bintray.com/packages/dvpermyakov/maven/com.dvpermyakov.rx-kotlin/images/download.svg)](https://bintray.com/dvpermyakov/maven/com.dvpermyakov.rx-kotlin/_latestVersion)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 1. Creating
@@ -45,7 +45,7 @@ repositories {
    }
 }
 dependencies {
-   implementation 'com.dvpermyakov:rx-kotlin:0.1.0'
+   implementation 'com.dvpermyakov:rx-kotlin:0.1.1'
 }
 ```
 

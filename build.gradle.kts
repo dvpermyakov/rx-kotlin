@@ -35,7 +35,7 @@ val sourcesJar by tasks.creating(Jar::class) {
     from(sourceSets["main"].allSource)
 }
 
-val currentVersion = "0.1.0"
+val currentVersion = "0.1.1"
 
 publishing {
     publications {
@@ -64,7 +64,7 @@ bintray {
 
     pkg.apply {
         repo = "maven"
-        name = "rx-kotlin-core"
+        name = "com.dvpermyakov.rx-kotlin"
         vcsUrl = "https://github.com/dvpermyakov/rx-kotlin.git"
         setLicenses("MIT")
 
