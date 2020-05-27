@@ -30,11 +30,11 @@ jobs:
           name: Publish Maven artifact
           command: ./gradlew publish
       - run:
-          filters:
-            branches:
-              only: master
           name: Upload to Bintray
-          command: ./gradlew bintrayUpload
+          command: |
+            if [ "$CIRCLE_BRANCH" = "master" ]; then
+              ./gradlew bintrayUpload
+            fi
       - store_artifacts:
           path: build/repository
           destination: repository
