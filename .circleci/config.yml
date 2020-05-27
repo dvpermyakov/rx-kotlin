@@ -31,10 +31,7 @@ jobs:
           command: ./gradlew publish
       - run:
           name: Upload to Bintray
-          command: |
-#            if [ "$CIRCLE_BRANCH" = "master" ]; then
-              ./gradlew bintrayUpload
-#            fi
+          command: ./gradlew bintrayUpload
       - store_artifacts:
           path: build/repository
           destination: repository
