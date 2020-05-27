@@ -1,7 +1,7 @@
 rx-kotlin operators
 ------------------------------------------------------------
 [![CircleCI](https://circleci.com/gh/dvpermyakov/rx-kotlin/tree/master.svg?style=shield)](https://circleci.com/gh/dvpermyakov/rx-kotlin/tree/master)
-[![Bintray](https://api.bintray.com/packages/dvpermyakov/rx-kotlin/core/images/download.svg)](https://bintray.com/dvpermyakov/rx-kotlin/core/_latestVersion)
+[![Bintray](https://api.bintray.com/packages/dvpermyakov/maven/rx-kotlin-core/images/download.svg)](https://bintray.com/dvpermyakov/maven/rx-kotlin-core/_latestVersion)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 1. Creating
@@ -41,11 +41,11 @@ Gradle:
 ```Groovy
 repositories {
    maven { 
-      url  "https://dl.bintray.com/dvpermyakov/rx-kotlin"
+      url  "https://dl.bintray.com/dvpermyakov/maven"
    }
 }
 dependencies {
-   implementation 'com.dvpermyakov:rx-kotlin:0.1'
+   implementation 'com.dvpermyakov:rx-kotlin:0.1.0'
 }
 ```
 
