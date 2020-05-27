@@ -14,7 +14,7 @@ jobs:
             - v1-dependencies-{{ checksum "build.gradle.kts" }}
             - v1-dependencies-
       - run:
-          name: Download Dependencies
+          name: Check dependencies
           command: ./gradlew dependencies
       - save_cache:
           paths:
@@ -29,6 +29,12 @@ jobs:
       - run:
           name: Publish Maven artifact
           command: ./gradlew publish
+      - run:
+          name: Upload to Bintray
+          command: |
+            if [ "$CIRCLE_BRANCH" = "master" ]; then
+              ./gradlew bintrayUpload
+            fi
       - store_artifacts:
           path: build/repository
           destination: repository
