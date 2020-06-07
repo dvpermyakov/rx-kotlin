@@ -1,5 +1,6 @@
 package com.dvpermyakov.rx.operators.combining
 
+import com.dvpermyakov.rx.functions.MapFunction
 import com.dvpermyakov.rx.functions.Zipper
 import com.dvpermyakov.rx.functions.ZipperWithTwo
 import com.dvpermyakov.rx.observables.Observable
@@ -16,8 +17,8 @@ fun <T> Observable.Companion.concatList(sources: List<Observable<T>>): Observabl
 }
 
 fun <T, R> Observable.Companion.zipList(
-    zipper: Zipper<T, R>,
-    sources: List<Observable<T>>
+    sources: List<Observable<T>>,
+    zipper: Zipper<T, R>
 ): Observable<R> {
     return ZipObservable(sources, zipper)
 }
@@ -28,5 +29,22 @@ fun <T1 : Any, T2 : Any, R> Observable.Companion.zip(
     source2: Observable<T2>,
     zipper: ZipperWithTwo<T1, T2, R>
 ): Observable<R> {
-    return zipList(zipper, listOf(source1 as Observable<Any>, source2 as Observable<Any>))
+    return zipList(listOf(source1 as Observable<Any>, source2 as Observable<Any>), zipper)
 }
+
+fun <T, R> Observable.Companion.combineLatestList(
+    sources: List<Observable<T>>,
+    combiner: MapFunction<List<T>, R>
+): Observable<R> {
+    return CombineLatestObservable(sources, combiner)
+}
+
+@Suppress("UNCHECKED_CAST")
+fun <T, T1 : T, T2 : T, R> Observable.Companion.combineLatest(
+    source1: Observable<T1>,
+    source2: Observable<T2>,
+    combiner: MapFunction<List<T>, R>
+): Observable<R> {
+    return combineLatestList(listOf(source1 as Observable<T>, source2 as Observable<T>), combiner)
+}
+

@@ -35,7 +35,7 @@ val sourcesJar by tasks.creating(Jar::class) {
     from(sourceSets["main"].allSource)
 }
 
-val currentVersion = "0.1.1"
+val currentVersion = File("version.txt").readText().trim()
 
 publishing {
     publications {

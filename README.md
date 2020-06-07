@@ -40,12 +40,10 @@ rx-kotlin operators
 Gradle: 
 ```Groovy
 repositories {
-   maven { 
-      url  "https://dl.bintray.com/dvpermyakov/maven"
-   }
+   jcenter()
 }
 dependencies {
-   implementation 'com.dvpermyakov:rx-kotlin:0.1.1'
+   implementation 'com.dvpermyakov:rx-kotlin:0.1.2'
 }
 ```
 
