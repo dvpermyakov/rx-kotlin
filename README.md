@@ -23,6 +23,7 @@ rx-kotlin operators
     * Filter
     * TakeLast
 4. Combining
+    * CombineLatest
     * Concat
     * Merge
     * Zip
